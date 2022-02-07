@@ -5,7 +5,7 @@ public class User {
     private char gender;
 //photo
 
-    public User(String fname,String lname,String phone,String address,String password,char gender,String bio = NULL){
+    public User(String fname,String lname,String phone,String address,String password,char gender,String bio){
         set_fname(fname);
         set_lname(lname);
         set_phone(phone);
