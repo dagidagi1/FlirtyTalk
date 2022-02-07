@@ -168,4 +168,3 @@
         app:layout_constraintTop_toBottomOf="@+id/reg_lname_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>

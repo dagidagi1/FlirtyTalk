@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavHostFragment nav_host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_nav_controller);
         navController = nav_host.getNavController();
+
     }
 
     @Override
