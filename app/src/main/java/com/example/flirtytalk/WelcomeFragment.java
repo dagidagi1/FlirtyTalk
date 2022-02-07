@@ -34,7 +34,9 @@ public class WelcomeFragment extends Fragment {
         NavController navcontroller = Navigation.findNavController(view);
         Button login_btn = view.findViewById(R.id.to_login_frame_btn);
         Button register_btn = view.findViewById(R.id.to_register_frame_btn);
+        Button enter_btn = view.findViewById(R.id.login_no_user_enter_btn);
         login_btn.setOnClickListener(p -> navcontroller.navigate(R.id.action_welcomeFragment_to_logInFragment));
         register_btn.setOnClickListener(p -> navcontroller.navigate(R.id.action_welcomeFragment_to_registerFragment));
+        enter_btn.setOnClickListener(p->navcontroller.navigate(R.id.action_welcomeFragment_to_homeFragment));
     }
 }
