@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "405023731690",
+    "project_id": "flirtytalk",
+    "storage_bucket": "flirtytalk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:405023731690:android:db88d4dcbed370da788c93",
+        "android_client_info": {
+          "package_name": "com.example.flirtytalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "405023731690-d9g98rpqo3g47nrrsivun2d08mf3bl4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsNnrx616Yeir2Ca8697ThryJlWbkqr1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "405023731690-d9g98rpqo3g47nrrsivun2d08mf3bl4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
