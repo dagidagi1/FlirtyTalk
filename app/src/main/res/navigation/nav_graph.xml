@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/welcomeFragment">
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.flirtytalk.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.flirtytalk.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.flirtytalk.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" />
+</navigation>
