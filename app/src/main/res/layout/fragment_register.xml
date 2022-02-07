@@ -10,12 +10,14 @@
         android:id="@+id/reg_phone_number_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="Phone number"
         android:inputType="phone"
         android:minHeight="48dp"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_lname_field" />
 
@@ -23,11 +25,13 @@
         android:id="@+id/reg_address_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Address - optional."
         android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_phone_number_field" />
 
@@ -35,6 +39,7 @@
         android:id="@+id/reg_gender_switch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:showText="false"
         android:splitTrack="false"
         android:textAlignment="textEnd"
@@ -48,6 +53,7 @@
         android:id="@+id/reg_female_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:text="Female"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,13 +64,41 @@
         android:id="@+id/reg_password_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_address_field" />
+
+    <TextView
+        android:id="@+id/reg_male_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Male"
+        app:layout_constraintEnd_toStartOf="@+id/reg_gender_switch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/reg_gender_switch" />
+
+    <EditText
+        android:id="@+id/editTextTextMultiLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Bio - optional."
+        android:inputType="textMultiLine"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reg_gender_switch" />
 
     <EditText
         android:id="@+id/reg_fname_field"
@@ -77,16 +111,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_logo" />
-
-    <TextView
-        android:id="@+id/reg_male_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        app:layout_constraintEnd_toStartOf="@+id/reg_gender_switch"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/reg_gender_switch" />
 
     <EditText
         android:id="@+id/reg_lname_field"
@@ -130,17 +154,18 @@
         app:layout_constraintStart_toEndOf="@+id/reg_cancel_btn" />
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/editTextTextPersonName4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
         android:ems="10"
-        android:gravity="start|top"
-        android:hint="Bio - optional."
-        android:inputType="textMultiLine"
+        android:hint="Email"
+        android:inputType="textPersonName"
         android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/reg_phone_number_field"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_gender_switch" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_lname_field" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
