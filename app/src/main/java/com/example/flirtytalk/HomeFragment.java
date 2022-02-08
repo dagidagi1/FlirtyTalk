@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class HomeFragment extends Fragment {
 
     NavController navController;
+    TextView idTV;
+    String id;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -26,6 +29,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        id = HomeFragmentArgs.fromBundle(getArguments()).getId();
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -35,9 +39,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        posts_list = view.findViewById(R.id.home_posts_rv);
-        posts_list.setHasFixedSize(true);
-        LinearLayoutManager layout_manager = new LinearLayoutManager(view.getContext());
-        posts_list.setLayoutManager(layout_manager);
+        idTV = view.findViewById(R.id.home_id);
+        idTV.setText(id);
     }
 }

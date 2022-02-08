@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -71,7 +72,9 @@ public class LogInFragment extends Fragment {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Toast.makeText(getActivity(), "Signed in successfully", Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.action_logInFragment_to_homeFragment);
+                String id = mAuth.getCurrentUser().getUid();
+                LogInFragmentDirections.ActionLogInFragmentToHomeFragment action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(id);
+                navController.navigate(action);
             }
             else{
                 Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show();
