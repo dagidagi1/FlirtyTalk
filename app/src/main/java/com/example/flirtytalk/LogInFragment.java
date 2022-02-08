@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.EmailAuthCredential;
@@ -25,6 +26,7 @@ public class LogInFragment extends Fragment {
     NavController navController;
     EditText emailEditText, passwordEditText;
     Button loginBtn;
+    ProgressBar progressBar;
 
     public LogInFragment() {
         // Required empty public constructor
@@ -45,19 +47,36 @@ public class LogInFragment extends Fragment {
         emailEditText = view.findViewById(R.id.login_email_field);
         passwordEditText = view.findViewById(R.id.login_pass_field);
         loginBtn = view.findViewById(R.id.login_log_btn);
+        progressBar = view.findViewById(R.id.login_progressBar);
         loginBtn.setOnClickListener(p -> login());
     }
 
     private void login() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        if(email.isEmpty())
+        {
+            emailEditText.setError("Email is required");
+            emailEditText.requestFocus();
+            return;
+        }
+        if(password.isEmpty())
+        {
+            passwordEditText.setError("Password is required");
+            passwordEditText.requestFocus();
+            return;
+        }
+        progressBar.setVisibility(View.VISIBLE);
+        loginBtn.setEnabled(false);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if(task.isSuccessful()){
                 Toast.makeText(getActivity(), "Signed in successfully", Toast.LENGTH_LONG).show();
                 navController.navigate(R.id.action_logInFragment_to_homeFragment);
             }
             else{
-                Toast.makeText(getActivity(), "Not signed in", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show();
+                loginBtn.setEnabled(true);
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
