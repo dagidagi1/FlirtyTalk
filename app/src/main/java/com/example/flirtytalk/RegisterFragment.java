@@ -20,6 +20,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.flirtytalk.Model.User;
+import com.example.flirtytalk.Model.UsersModel;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
@@ -123,7 +124,7 @@ public class RegisterFragment extends Fragment {
                 User user = new User(id, fname, lname, phoneNumber,address,gender, bio);
                 Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
                 RegisterFragmentDirections.ActionRegisterFragmentToHomeFragment action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(id);
-                navController.navigate(action);
+                UsersModel.instance.addUser(user, () -> navController.navigate(action));
             }
             else{
                 Toast.makeText(getActivity(), "Register not succeeded", Toast.LENGTH_LONG).show();
