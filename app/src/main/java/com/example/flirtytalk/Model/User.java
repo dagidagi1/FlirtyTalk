@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class User {
+
     @PrimaryKey
     @NonNull
     private String id;
