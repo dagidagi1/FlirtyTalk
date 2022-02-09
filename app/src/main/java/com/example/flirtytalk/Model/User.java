@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class User {
     @PrimaryKey
     @NonNull
-    private String id = "";
+    private String id;
     private String fname, lname, phone, address, bio;
     private char gender;
 //photo
@@ -28,20 +28,20 @@ public class User {
 
     @NonNull
     public String getId(){return id;}
-    public String get_fname(){return fname;}
-    public String get_lname(){return lname;}
-    public String get_phone(){return phone;}
-    public String get_address(){return address;}
-    public char get_gender(){return gender;}
-    public String get_bio(){return bio;}
+    public String getFname(){return fname;}
+    public String getLname(){return lname;}
+    public String getPhone(){return phone;}
+    public String getAddress(){return address;}
+    public char getGender(){return gender;}
+    public String getBio(){return bio;}
     //get photo
 
-    private void set_id(@NonNull String id) {this.id = id;}
-    public void set_fname(String fname){this.fname = fname;}
-    public void set_lname(String lname){this.lname = lname;}
-    public void set_phone(String phone){this.phone = phone;}
-    public void set_address(String address){this.address = address;}
-    public void set_gender(char gender){this.gender = gender;}
-    public void set_bio(String bio){this.bio = bio;}
+    public void setId(@NonNull String id) {this.id = id;}
+    public void setFname(String fname){this.fname = fname;}
+    public void setLname(String lname){this.lname = lname;}
+    public void setPhone(String phone){this.phone = phone;}
+    public void setAddress(String address){this.address = address;}
+    public void setGender(char gender){this.gender = gender;}
+    public void setBio(String bio){this.bio = bio;}
     //set photo
 }
