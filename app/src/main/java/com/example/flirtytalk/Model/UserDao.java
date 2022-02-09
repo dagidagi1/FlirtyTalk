@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM Users ORDER BY fname ASC")
+    @Query("SELECT * FROM User ORDER BY fname ASC")
     List<User> getAllUsers();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -23,6 +23,6 @@ public interface UserDao {
     @Update
     void update(User user);
 
-    @Query("SELECT * FROM Users WHERE id=:id ")
+    @Query("SELECT * FROM User WHERE id=:id ")
     User getUser(String id);
 }
