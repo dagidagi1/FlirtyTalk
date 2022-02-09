@@ -122,7 +122,8 @@ public class RegisterFragment extends Fragment {
                 String id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                 User user = new User(id, fname, lname, phoneNumber,address,gender, bio);
                 Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
-                navController.navigate(R.id.action_registerFragment_to_homeFragment);
+                RegisterFragmentDirections.ActionRegisterFragmentToHomeFragment action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(id);
+                navController.navigate(action);
             }
             else{
                 Toast.makeText(getActivity(), "Register not succeeded", Toast.LENGTH_LONG).show();
