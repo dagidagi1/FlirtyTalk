@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 public class User {
 
@@ -45,4 +48,32 @@ public class User {
     public void setGender(char gender){this.gender = gender;}
     public void setBio(String bio){this.bio = bio;}
     //set photo
+
+    public Map<String, Object> toJson(){
+        Map<String, Object> json = new HashMap<>();
+        json.put("id", getId());
+        json.put("fname", getFname());
+        json.put("lname", getLname());
+        json.put("phone", getPhone());
+        json.put("address", getAddress());
+        json.put("gender", getGender());
+        json.put("bio", getBio());
+        //json.put("photo", user.getPhoto());
+        return json;
+    }
+
+    static User fromJson(Map<String, Object> json){
+        String id = ((String)json.get("id"));
+        if (id == null)
+            return null;
+        String fname = ((String)json.get("fname"));
+        String lname = ((String)json.get("lname"));
+        String phone = ((String)json.get("phone"));
+        String address = ((String)json.get("address"));
+        char gender = ((char)json.get("gender"));
+        String bio = ((String)json.get("bio"));
+        //String photo = ((String)json.get("photo"));
+        User user = new User(id,fname,lname,phone,address,gender,bio);
+        return user;
+    }
 }
