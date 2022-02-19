@@ -1,12 +1,10 @@
 package com.example.flirtytalk.Model;
 
-import com.example.flirtytalk.MyApplication;
-
 import java.util.List;
 
 public class UsersModel {
 
-    private UsersModelFireBase usersModelFireBase;
+    private final UsersModelFireBase usersModelFireBase = new UsersModelFireBase();
 
     public static final UsersModel instance = new UsersModel();
 
