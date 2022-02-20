@@ -4,7 +4,7 @@ import java.util.List;
 
 public class UsersModel {
 
-    private final UsersModelFireBase usersModelFireBase = new UsersModelFireBase();
+    UsersModelFireBase usersModelFireBase = new UsersModelFireBase();
 
     public static final UsersModel instance = new UsersModel();
 
@@ -30,19 +30,6 @@ public class UsersModel {
         usersModelFireBase.addUser(user, listener);
         /*MyApplication.executorService.execute(()->{
             UsersLocalDB.db.userDao().insert(user);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });*/
-    }
-
-    public interface deleteUserListener{
-        void onComplete();
-    }
-    public void deleteUser(User user, deleteUserListener listener) {
-        usersModelFireBase.deleteUser(user, listener);
-        /*MyApplication.executorService.execute(()->{
-            UsersLocalDB.db.userDao().delete(user);
             MyApplication.mainHandler.post(()->{
                 listener.onComplete();
             });

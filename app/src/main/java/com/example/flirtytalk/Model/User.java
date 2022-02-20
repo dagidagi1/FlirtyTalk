@@ -73,7 +73,6 @@ public class User {
         char gender = ((char)json.get("gender"));
         String bio = ((String)json.get("bio"));
         //String photo = ((String)json.get("photo"));
-        User user = new User(id,fname,lname,phone,address,gender,bio);
-        return user;
+        return new User(id,fname,lname,phone,address,gender,bio);
     }
 }

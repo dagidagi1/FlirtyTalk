@@ -37,13 +37,6 @@ public class UsersModelFireBase {
                 .addOnFailureListener((e)-> Log.d("TAG", "get failed with ", e));
     }
 
-    public void deleteUser(User user, UsersModel.deleteUserListener listener) {
-        db.collection("cities").document(user.getId())
-                .delete().addOnSuccessListener((successListener)-> listener.onComplete()).addOnFailureListener((e)->{
-                    Log.w("TAG", "Error deleting document", e);
-                    listener.onComplete();
-                });
-    }
 
     public void getUser(String userId, UsersModel.getUserListener listener) {
         DocumentReference docRef = db.collection("Users").document(userId);

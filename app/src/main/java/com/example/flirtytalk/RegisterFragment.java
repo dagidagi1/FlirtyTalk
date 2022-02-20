@@ -73,7 +73,7 @@ public class RegisterFragment extends Fragment {
         String password = passwordEditText.getText().toString();
         String address = addressEditText.getText().toString();
         String bio = bioEditText.getText().toString();
-        char gender = genderSwitch.isActivated() ? 'm' : 'f';
+        char gender = genderSwitch.isActivated() ? 'f' : 'm';
         if(fname.isEmpty())
         {
             fnameEditText.setError("First name is required");
