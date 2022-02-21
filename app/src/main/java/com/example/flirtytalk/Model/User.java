@@ -13,8 +13,13 @@ public class User {
     @PrimaryKey
     @NonNull
     private String id = "";
-    private String fname, lname, phone, city, bio, gender;
-//photo
+    private String fname;
+    private String lname;
+    private String phone;
+    private String city;
+    private String bio;
+    private String gender;
+    private String photo;
 
     public User(){}
 
@@ -26,7 +31,6 @@ public class User {
         this.city = city;
         this.gender = gender;
         this.bio = bio;
-        //photo
     }
 
     @NonNull
@@ -37,7 +41,7 @@ public class User {
     public String getCity(){return city;}
     public String getGender(){return gender;}
     public String getBio(){return bio;}
-    //get photo
+    public String getPhoto() {return photo;}
 
     public void setId(@NonNull String id) {this.id = id;}
     public void setFname(String fname){this.fname = fname;}
@@ -46,7 +50,7 @@ public class User {
     public void setCity(String city){this.city = city;}
     public void setGender(String gender){this.gender = gender;}
     public void setBio(String bio){this.bio = bio;}
-    //set photo
+    public void setPhoto(String photo){this.photo = photo;}
 
     public Map<String, Object> toJson(){
         Map<String, Object> json = new HashMap<>();
@@ -57,7 +61,7 @@ public class User {
         json.put("city", getCity());
         json.put("gender", getGender());
         json.put("bio", getBio());
-        //json.put("photo", user.getPhoto());
+        json.put("photo", getPhoto());
         return json;
     }
 
@@ -71,7 +75,9 @@ public class User {
         String address = ((String)json.get("city"));
         String gender = ((String)json.get("gender"));
         String bio = ((String)json.get("bio"));
-        //String photo = ((String)json.get("photo"));
-        return new User(id,fname,lname,phone,address,gender,bio);
+        String photo = ((String)json.get("photo"));
+        User user = new User(id,fname,lname,phone,address,gender,bio);
+        user.setPhoto(photo);
+        return user;
     }
 }

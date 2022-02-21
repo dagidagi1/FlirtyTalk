@@ -93,7 +93,7 @@ public class UsersModel {
     public interface saveImageListener{
         void onComplete(String url);
     }
-    public void saveImage(Bitmap image, saveImageListener listener){
-        usersModelFireBase.saveImage(image, listener);
+    public void saveImage(Bitmap image, String id, saveImageListener listener){
+        usersModelFireBase.saveImage(image, id, listener);
     }
 }
