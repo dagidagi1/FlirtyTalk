@@ -99,12 +99,12 @@
         app:layout_constraintTop_toBottomOf="@+id/reg_phone_number_field" />
 
     <EditText
-        android:id="@+id/reg_address_field"
+        android:id="@+id/reg_city_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/address_optional"
+        android:hint="@string/city_optional"
         android:importantForAutofill="no"
         android:inputType="text|textPostalAddress"
         android:minHeight="48dp"
@@ -131,9 +131,9 @@
         android:textOn="@string/male"
         android:textSize="18sp"
         android:thumb="@drawable/welcome_btns"
-        app:layout_constraintEnd_toEndOf="@id/reg_address_field"
-        app:layout_constraintStart_toStartOf="@id/reg_address_field"
-        app:layout_constraintTop_toBottomOf="@id/reg_address_field"
+        app:layout_constraintEnd_toEndOf="@id/reg_city_field"
+        app:layout_constraintStart_toStartOf="@id/reg_city_field"
+        app:layout_constraintTop_toBottomOf="@id/reg_city_field"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     <EditText

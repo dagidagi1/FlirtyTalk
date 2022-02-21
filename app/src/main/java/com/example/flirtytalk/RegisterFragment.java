@@ -21,16 +21,14 @@ import android.widget.Toast;
 
 import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
     NavController navController;
-    EditText fnameEditText,  lnameEditText, phoneNumberEditText, addressEditText, bioEditText, emailEditText, passwordEditText;
+    EditText fnameEditText,  lnameEditText, phoneNumberEditText, cityEditText, bioEditText, emailEditText, passwordEditText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch genderSwitch;
     ProgressBar progressBar;
@@ -43,8 +41,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mAuth = FirebaseAuth.getInstance();
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
@@ -58,7 +54,7 @@ public class RegisterFragment extends Fragment {
         emailEditText = view.findViewById(R.id.reg_email_field);
         phoneNumberEditText = view.findViewById(R.id.reg_phone_number_field);
         passwordEditText = view.findViewById(R.id.reg_password_field);
-        addressEditText = view.findViewById(R.id.reg_address_field);
+        cityEditText = view.findViewById(R.id.reg_city_field);
         genderSwitch = view.findViewById(R.id.reg_gender_switch);
         bioEditText = view.findViewById(R.id.reg_bio_field);
         progressBar = view.findViewById(R.id.reg_progress_bar);
@@ -71,7 +67,7 @@ public class RegisterFragment extends Fragment {
         String phoneNumber = phoneNumberEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String address = addressEditText.getText().toString();
+        String city = cityEditText.getText().toString();
         String bio = bioEditText.getText().toString();
         String gender = genderSwitch.isActivated() ? "f" : "m";
         if(fname.isEmpty())
@@ -118,10 +114,9 @@ public class RegisterFragment extends Fragment {
         }
         reg_btn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                String id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                User user = new User(id, fname, lname, phoneNumber,address,gender, bio);
+        UsersModel.instance.registerUser(email, password, (id)->{
+            if(id != null){
+                User user = new User(id, fname, lname, phoneNumber,city,gender, bio);
                 UsersModel.instance.addUser(user, ()-> {
                     Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
                     RegisterFragmentDirections.ActionRegisterFragmentToHomeFragment action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(id);

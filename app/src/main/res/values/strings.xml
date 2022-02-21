@@ -8,7 +8,7 @@
     <string name="email">Email</string>
     <string name="phone_number">Phone number</string>
     <string name="password">Password</string>
-    <string name="address_optional">Address - optional.</string>
+    <string name="city_optional">City - optional.</string>
     <string name="bio_optional">Bio - optional.</string>
     <string name="last_name">Last name</string>
     <string name="gender">Gender</string>

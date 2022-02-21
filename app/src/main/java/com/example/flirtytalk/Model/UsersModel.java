@@ -1,6 +1,10 @@
 package com.example.flirtytalk.Model;
 
+
+import android.graphics.Bitmap;
+
 import java.util.List;
+import java.util.Objects;
 
 public class UsersModel {
 
@@ -62,4 +66,34 @@ public class UsersModel {
         });*/
     }
 
+    public interface registerUserListener{
+        void onComplete(String id);
+    }
+    public void registerUser(String email, String password, registerUserListener listener){
+        usersModelFireBase.registerUser(email, password, listener);
+    }
+
+    public interface loginUserListener{
+        void onComplete(String id);
+    }
+    public void loginUser(String email, String password, loginUserListener listener){
+        usersModelFireBase.loginUser(email,password,listener);
+    }
+
+    public interface getCurrentUserListener{
+        void onComplete(String id);
+    }
+    public void getCurrentUser(getCurrentUserListener listener){
+        usersModelFireBase.getCurrentUser(listener);
+    }
+    public void logout(){
+        usersModelFireBase.logout();
+    }
+
+    public interface saveImageListener{
+        void onComplete(String url);
+    }
+    public void saveImage(Bitmap image, saveImageListener listener){
+        usersModelFireBase.saveImage(image, listener);
+    }
 }

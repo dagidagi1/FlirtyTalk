@@ -1,22 +1,24 @@
 package com.example.flirtytalk.Model;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 
 public class UsersModelFireBase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth;
 
     public void getAllUsers(UsersModel.getAllUsersListener listener) {
         db.collection("Users")
@@ -37,17 +39,8 @@ public class UsersModelFireBase {
 
     public void addUser(User user, UsersModel.addUserListener listener) {
         db.collection("Users").document(user.getId()).set(user.toJson())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        listener.onComplete();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("TAG", "Error writing document", e);
-            }
-        });
+                .addOnSuccessListener(unused -> listener.onComplete())
+                .addOnFailureListener(e -> Log.d("TAG", "Error writing document", e));
     }
 
 
@@ -78,5 +71,53 @@ public class UsersModelFireBase {
                     Log.w("TAG", "Error updating document", e);
                     listener.onComplete();
                 });
+    }
+
+    public void registerUser(String email, String password, UsersModel.registerUserListener listener) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                String id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+                listener.onComplete(id);
+            }
+            else{
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void loginUser(String email, String password, UsersModel.loginUserListener listener) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
+                String id = mAuth.getCurrentUser().getUid();
+                listener.onComplete(id);
+            }
+            else{
+                listener.onComplete(null);
+            }
+        });
+    }
+
+    public void getCurrentUser(UsersModel.getCurrentUserListener listener) {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null) {
+            String id = currentUser.getUid();
+            listener.onComplete(id);
+        }
+        else{
+           listener.onComplete(null);
+        }
+    }
+
+    public void logout() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+    }
+
+    public void saveImage(Bitmap image, UsersModel.saveImageListener listener) {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+
     }
 }
