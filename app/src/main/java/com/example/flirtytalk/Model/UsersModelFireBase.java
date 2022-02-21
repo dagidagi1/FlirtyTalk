@@ -2,6 +2,10 @@ package com.example.flirtytalk.Model;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -33,8 +37,17 @@ public class UsersModelFireBase {
 
     public void addUser(User user, UsersModel.addUserListener listener) {
         db.collection("Users").document(user.getId()).set(user.toJson())
-                .addOnSuccessListener((successListener)-> listener.onComplete())
-                .addOnFailureListener((e)-> Log.d("TAG", "get failed with ", e));
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        listener.onComplete();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG", "Error writing document", e);
+            }
+        });
     }
 
 

@@ -13,13 +13,12 @@ public class User {
     @PrimaryKey
     @NonNull
     private String id;
-    private String fname, lname, phone, address, bio;
-    private char gender;
+    private String fname, lname, phone, address, bio, gender;
 //photo
 
     public User(){}
 
-    public User(@NonNull String id, String fname,String lname,String phone,String address,char gender,String bio){
+    public User(@NonNull String id, String fname,String lname,String phone,String address,String gender,String bio){
         this.id = id;
         this.fname = fname;
         this.lname = lname;
@@ -36,7 +35,7 @@ public class User {
     public String getLname(){return lname;}
     public String getPhone(){return phone;}
     public String getAddress(){return address;}
-    public char getGender(){return gender;}
+    public String getGender(){return gender;}
     public String getBio(){return bio;}
     //get photo
 
@@ -45,7 +44,7 @@ public class User {
     public void setLname(String lname){this.lname = lname;}
     public void setPhone(String phone){this.phone = phone;}
     public void setAddress(String address){this.address = address;}
-    public void setGender(char gender){this.gender = gender;}
+    public void setGender(String gender){this.gender = gender;}
     public void setBio(String bio){this.bio = bio;}
     //set photo
 
@@ -70,7 +69,7 @@ public class User {
         String lname = ((String)json.get("lname"));
         String phone = ((String)json.get("phone"));
         String address = ((String)json.get("address"));
-        char gender = ((char)json.get("gender"));
+        String gender = ((String)json.get("gender"));
         String bio = ((String)json.get("bio"));
         //String photo = ((String)json.get("photo"));
         return new User(id,fname,lname,phone,address,gender,bio);
