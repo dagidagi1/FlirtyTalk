@@ -67,8 +67,7 @@ public class LogInFragment extends Fragment {
         UsersModel.instance.loginUser(email, password,(id)->{
             if(id!= null){
                 Toast.makeText(getActivity(), "Signed in successfully", Toast.LENGTH_LONG).show();
-                LogInFragmentDirections.ActionLogInFragmentToHomeFragment action = LogInFragmentDirections.actionLogInFragmentToHomeFragment(id);
-                navController.navigate(action);
+                navController.navigate(R.id.action_logInFragment_to_homeFragment);
             }
             else{
                 Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show();

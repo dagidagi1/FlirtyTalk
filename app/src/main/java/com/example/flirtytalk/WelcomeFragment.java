@@ -53,8 +53,7 @@ public class WelcomeFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         UsersModel.instance.getCurrentUser((id -> {
             if (id != null) {
-                WelcomeFragmentDirections.ActionWelcomeFragmentToHomeFragment action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment(id);
-                navController.navigate(action);
+                navController.navigate(R.id.action_welcomeFragment_to_homeFragment);
             } else {
                 login_btn.setEnabled(true);
                 register_btn.setEnabled(true);

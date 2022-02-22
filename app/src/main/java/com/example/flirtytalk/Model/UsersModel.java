@@ -86,6 +86,7 @@ public class UsersModel {
     public void getCurrentUser(getCurrentUserListener listener){
         usersModelFireBase.getCurrentUser(listener);
     }
+
     public void logout(){
         usersModelFireBase.logout();
     }

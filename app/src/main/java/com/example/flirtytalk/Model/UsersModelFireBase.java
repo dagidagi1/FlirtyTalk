@@ -121,6 +121,7 @@ public class UsersModelFireBase {
     }
 
     public void saveImage(Bitmap image, String id, UsersModel.saveImageListener listener) {
+        if(image == null){listener.onComplete(null); return;}
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("avatar/" + id + ".jpg");

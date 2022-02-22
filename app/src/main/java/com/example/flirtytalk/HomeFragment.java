@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        id = HomeFragmentArgs.fromBundle(getArguments()).getId();
+        UsersModel.instance.getCurrentUser((userId)->{id = userId;});
         navController = Navigation.findNavController(view);
         idTV = view.findViewById(R.id.home_id);
         idTV.setText(id);

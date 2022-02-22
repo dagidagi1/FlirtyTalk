@@ -142,12 +142,10 @@ public class RegisterFragment extends Fragment {
             if(id != null){
                 User user = new User(id, fname, lname, phoneNumber,city,gender, bio);
                 UsersModel.instance.saveImage(photo, id, (url) ->{
-                   Log.d("Tag", url);
                    user.setPhoto(url);
                    UsersModel.instance.addUser(user, ()-> {
                        Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
-                       RegisterFragmentDirections.ActionRegisterFragmentToHomeFragment action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(id);
-                       navController.navigate(action);
+                       navController.navigate(R.id.action_registerFragment_to_homeFragment);
                    });
                 });
             }
