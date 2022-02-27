@@ -66,17 +66,6 @@ public class UsersModelFireBase {
         });
     }
 
-    public void updateUser(User user, UsersModel.updateUserListener listener) {
-        DocumentReference userRef = db.collection("Users").document(user.getId());
-        userRef
-                .update("phone", user.getPhone(),"bio", user.getBio())
-                .addOnSuccessListener((successListener)-> listener.onComplete())
-                .addOnFailureListener((e)->{
-                    Log.w("TAG", "Error updating document", e);
-                    listener.onComplete();
-                });
-    }
-
     public void registerUser(String email, String password, UsersModel.registerUserListener listener) {
         mAuth = FirebaseAuth.getInstance();
         mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {

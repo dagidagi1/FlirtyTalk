@@ -53,19 +53,6 @@ public class UsersModel {
         });*/
     }
 
-    public interface updateUserListener {
-        void onComplete();
-    }
-    public void updateUser(User user, updateUserListener listener) {
-        usersModelFireBase.updateUser(user, listener);
-        /*MyApplication.executorService.execute(()->{
-            UsersLocalDB.db.userDao().update(user);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });*/
-    }
-
     public interface registerUserListener{
         void onComplete(String id);
     }
