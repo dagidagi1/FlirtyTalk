@@ -19,12 +19,12 @@
         tools:ignore="ImageContrastCheck" />
 
     <EditText
-        android:id="@+id/reg_fname_field"
+        android:id="@+id/reg_name_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/first_name"
+        android:hint="Name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:minHeight="48dp"
@@ -34,21 +34,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reg_logo" />
 
-    <EditText
-        android:id="@+id/reg_lname_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/last_name"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        android:textColorHint="#546E7A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_fname_field" />
 
     <EditText
         android:id="@+id/reg_email_field"
@@ -64,23 +49,8 @@
         android:textColorHint="#546E7A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_lname_field" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_name_field" />
 
-    <EditText
-        android:id="@+id/reg_phone_number_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/phone_number"
-        android:importantForAutofill="no"
-        android:inputType="phone"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        android:textColorHint="#546E7A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_email_field" />
 
     <EditText
         android:id="@+id/reg_password_field"
@@ -96,61 +66,27 @@
         android:textColorHint="#546E7A"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_phone_number_field" />
+        app:layout_constraintTop_toBottomOf="@+id/reg_email_field" />
 
-    <EditText
-        android:id="@+id/reg_city_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/city_optional"
-        android:importantForAutofill="no"
-        android:inputType="text|textPostalAddress"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        android:textColorHint="#546E7A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_password_field" />
 
     <Switch
         android:id="@+id/reg_gender_switch"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
         android:minHeight="48dp"
         android:showText="true"
-        android:splitTrack="true"
-        android:text="@string/gender"
-        android:textAlignment="textStart"
         android:textColor="#546E7A"
         android:textColorHint="#546E7A"
         android:textOff="@string/female"
         android:textOn="@string/male"
         android:textSize="18sp"
         android:thumb="@drawable/welcome_btns"
-        app:layout_constraintEnd_toEndOf="@id/reg_city_field"
-        app:layout_constraintStart_toStartOf="@id/reg_city_field"
-        app:layout_constraintTop_toBottomOf="@id/reg_city_field"
+        app:layout_constraintEnd_toEndOf="@id/reg_password_field"
+        app:layout_constraintStart_toStartOf="@id/reg_password_field"
+        app:layout_constraintTop_toBottomOf="@id/reg_password_field"
         tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-    <EditText
-        android:id="@+id/reg_bio_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="@string/bio_optional"
-        android:importantForAutofill="no"
-        android:inputType="textMultiLine"
-        android:minHeight="48dp"
-        android:textAlignment="center"
-        android:textColorHint="#546E7A"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_gender_switch" />
 
 
     <Button
@@ -185,12 +121,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/reg_camera_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_bio_field" />
 </androidx.constraintlayout.widget.ConstraintLayout>
