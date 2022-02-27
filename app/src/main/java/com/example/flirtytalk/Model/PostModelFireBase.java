@@ -26,7 +26,6 @@ import java.util.Objects;
 public class PostModelFireBase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth;
 
     public void getAllPosts(PostModel.getAllPostsListener listener) {
         db.collection("Post")
@@ -51,16 +50,14 @@ public class PostModelFireBase {
                 .addOnFailureListener(e -> Log.d("TAG", "Error writing document", e));
     }
 
-
-
-    public void getUser(String userId, UsersModel.getUserListener listener) {
-        DocumentReference docRef = db.collection("Users").document(userId);
+    public void getPost(String postId, PostModel.getPostListener listener) {
+        DocumentReference docRef = db.collection("Post").document(postId);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    User user = User.fromJson(document.getData());
-                    listener.onComplete(user);
+                    Post post = Post.fromJson(document.getData());
+                    listener.onComplete(post);
                 } else {
                     listener.onComplete(null);
                 }
@@ -71,7 +68,7 @@ public class PostModelFireBase {
         });
     }
 
-    public void updateUser(User user, UsersModel.updateUserListener listener) {
+   /* public void updateUser(User user, UsersModel.updateUserListener listener) {
         DocumentReference userRef = db.collection("Users").document(user.getId());
         userRef
                 .update("phone", user.getPhone(),"bio", user.getBio())
@@ -80,50 +77,7 @@ public class PostModelFireBase {
                     Log.w("TAG", "Error updating document", e);
                     listener.onComplete();
                 });
-    }
-
-    public void registerUser(String email, String password, UsersModel.registerUserListener listener) {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                String id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                listener.onComplete(id);
-            }
-            else{
-                listener.onComplete(null);
-            }
-        });
-    }
-
-    public void loginUser(String email, String password, UsersModel.loginUserListener listener) {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                String id = mAuth.getCurrentUser().getUid();
-                listener.onComplete(id);
-            }
-            else{
-                listener.onComplete(null);
-            }
-        });
-    }
-
-    public void getCurrentUser(UsersModel.getCurrentUserListener listener) {
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            String id = currentUser.getUid();
-            listener.onComplete(id);
-        }
-        else{
-            listener.onComplete(null);
-        }
-    }
-
-    public void logout() {
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
-    }
+    }*/
 
     public void saveImage(Bitmap image, String id, UsersModel.saveImageListener listener) {
         if(image == null){listener.onComplete(null); return;}

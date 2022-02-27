@@ -15,10 +15,10 @@ public interface PostDao {
     List<Post> getAllPosts();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insert(User... users);
+    void insert(Post... posts);
 
     @Update
-    void update(User user);
+    void update(Post post);
 
     @Query("SELECT * FROM Post WHERE user_id=:id ")
     List<Post> getPosts(String id);

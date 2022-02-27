@@ -15,7 +15,7 @@ public class UsersLocalDB {
     static public final UsersLocalDbRepository db =
             Room.databaseBuilder(MyApplication.getContext(),
                     UsersLocalDbRepository.class,
-                    "dbFileName.db")
+                    "UserLocalDB.db")
                     .fallbackToDestructiveMigration()
                     .build();
     private UsersLocalDB(){}

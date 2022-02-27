@@ -1,13 +1,10 @@
 package com.example.flirtytalk.Model;
 
-import android.graphics.Bitmap;
-
 import java.util.List;
-import java.util.Objects;
 
 public class PostModel {
 
-    UsersModelFireBase usersModelFireBase = new UsersModelFireBase();
+    PostModelFireBase postModelFireBase = new PostModelFireBase();
 
     public static final PostModel instance = new PostModel();
 
@@ -17,9 +14,9 @@ public class PostModel {
         void onComplete(List<Post> data);
     }
     public void getAllPosts(getAllPostsListener listener){
-        PostModelFireBase.getAllPosts(listener);
+        postModelFireBase.getAllPosts(listener);
         /*MyApplication.executorService.execute(()->{
-            List<User> data = UsersLocalDB.db.userDao().getAllUsers();
+            List<User> data = PostLocalDB.db.postDao().getAllPosts();
             MyApplication.mainHandler.post(()->{
                 listener.onComplete(data);
             });
@@ -30,7 +27,7 @@ public class PostModel {
         void onComplete();
     }
     public void addPost(Post post, addPostListener listener){
-        PostModelFireBase.addPost(post, listener);
+        postModelFireBase.addPost(post, listener);
         /*MyApplication.executorService.execute(()->{
             UsersLocalDB.db.userDao().insert(user);
             MyApplication.mainHandler.post(()->{
@@ -42,8 +39,8 @@ public class PostModel {
     public interface getPostListener {
         void onComplete(Post post);
     }
-    public void getPost(String userId, getPostListener listener) {
-        PostModelFireBase.getPost(userId, listener);
+    public void getPost(String postId, getPostListener listener) {
+        postModelFireBase.getPost(postId, listener);
         /*MyApplication.executorService.execute(()->{
             User user = UsersLocalDB.db.userDao().getUser(userId);
             MyApplication.mainHandler.post(()->{
@@ -52,18 +49,18 @@ public class PostModel {
         });*/
     }
 
-    public interface updatePostListener {
+    /*public interface updatePostListener {
         void onComplete();
     }
     public void updatePost(Post post, updatePostListener listener) {
-        PostModelFireBase.updatePost(post, listener);
-        /*MyApplication.executorService.execute(()->{
+        postModelFireBase.updatePost(post, listener);
+        *//*MyApplication.executorService.execute(()->{
             UsersLocalDB.db.userDao().update(user);
             MyApplication.mainHandler.post(()->{
                 listener.onComplete();
             });
-        });*/
-    }
+        });*//*
+    }*/
 
 
 

@@ -17,9 +17,6 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(User... users);
 
-    @Update
-    void update(User user);
-
     @Query("SELECT * FROM User WHERE id=:id ")
     User getUser(String id);
 }

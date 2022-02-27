@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.flirtytalk.MyApplication;
 
-@Database(entities = {User.class}, version = 3)
+@Database(entities = {Post.class}, version = 2)
 abstract class PostsLocalDbRepository extends RoomDatabase{
     public abstract PostDao postDao();
 }
@@ -15,7 +15,7 @@ public class PostLocalDB {
     static public final PostsLocalDbRepository db =
             Room.databaseBuilder(MyApplication.getContext(),
                     PostsLocalDbRepository.class,
-                    "dbFileName.db")
+                    "PostLocalDB.db")
                     .fallbackToDestructiveMigration()
                     .build();
     private PostLocalDB(){}
