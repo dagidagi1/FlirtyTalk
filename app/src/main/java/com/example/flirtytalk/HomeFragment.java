@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.flirtytalk.Model.UsersModel;
@@ -26,10 +27,9 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     NavController navController;
-    TextView idTV;
     RecyclerView home_rv;
     String id;
-    Button logout_btn;
+    ImageButton logout_btn;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,8 +46,6 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         UsersModel.instance.getCurrentUser((userId)->{id = userId;});
         navController = Navigation.findNavController(view);
-        idTV = view.findViewById(R.id.home_id);
-        idTV.setText(id);
         logout_btn = view.findViewById(R.id.home_logout_btn);
         home_rv = view.findViewById(R.id.home_rv);
         home_rv.setHasFixedSize(true);
@@ -78,7 +76,7 @@ public class HomeFragment extends Fragment {
         MyAdapter(int num){
             data = new LinkedList<String>();
             for(int i = 0; i < num; i++)
-                data.add("element " + i);
+                data.add("Name " + i);
         }
         @NonNull
         @Override
