@@ -1,6 +1,10 @@
 package com.example.flirtytalk;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,32 +13,35 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.provider.MediaStore;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
-import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Objects;
 
 
 public class RegisterFragment extends Fragment {
 
-    private FirebaseAuth mAuth;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     NavController navController;
-    EditText fnameEditText,  lnameEditText, phoneNumberEditText, addressEditText, bioEditText, emailEditText, passwordEditText;
+    EditText fnameEditText,  lnameEditText, phoneNumberEditText, cityEditText, bioEditText, emailEditText, passwordEditText;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch genderSwitch;
     ProgressBar progressBar;
     Button reg_btn;
+    ImageButton camera_btn;
+    Bitmap photo;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -43,8 +50,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mAuth = FirebaseAuth.getInstance();
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
 
@@ -58,11 +63,27 @@ public class RegisterFragment extends Fragment {
         emailEditText = view.findViewById(R.id.reg_email_field);
         phoneNumberEditText = view.findViewById(R.id.reg_phone_number_field);
         passwordEditText = view.findViewById(R.id.reg_password_field);
-        addressEditText = view.findViewById(R.id.reg_address_field);
+        cityEditText = view.findViewById(R.id.reg_city_field);
         genderSwitch = view.findViewById(R.id.reg_gender_switch);
         bioEditText = view.findViewById(R.id.reg_bio_field);
         progressBar = view.findViewById(R.id.reg_progress_bar);
+        camera_btn = view.findViewById(R.id.reg_camera_btn);
+        camera_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+        });
         reg_btn.setOnClickListener(p -> register());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+                resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            photo = (Bitmap) extras.get("data");
+
+        }
     }
 
     private void register() {
@@ -71,9 +92,9 @@ public class RegisterFragment extends Fragment {
         String phoneNumber = phoneNumberEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String address = addressEditText.getText().toString();
+        String city = cityEditText.getText().toString();
         String bio = bioEditText.getText().toString();
-        char gender = genderSwitch.isActivated() ? 'm' : 'f';
+        String gender = genderSwitch.isActivated() ? "f" : "m";
         if(fname.isEmpty())
         {
             fnameEditText.setError("First name is required");
@@ -110,21 +131,23 @@ public class RegisterFragment extends Fragment {
             passwordEditText.requestFocus();
             return;
         }
-        if(password.length()<6)
-        {
+        if(password.length()<6) {
             passwordEditText.setError("Password must be at least 6 characters");
             passwordEditText.requestFocus();
             return;
         }
         reg_btn.setEnabled(false);
         progressBar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(task -> {
-            if(task.isSuccessful()){
-                String id = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-                User user = new User(id, fname, lname, phoneNumber,address,gender, bio);
-                Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
-                RegisterFragmentDirections.ActionRegisterFragmentToHomeFragment action = RegisterFragmentDirections.actionRegisterFragmentToHomeFragment(id);
-                UsersModel.instance.addUser(user, () -> navController.navigate(action));
+        UsersModel.instance.registerUser(email, password, (id)->{
+            if(id != null){
+                User user = new User(id, fname, lname, phoneNumber,city,gender, bio);
+                UsersModel.instance.saveImage(photo, id, (url) ->{
+                   user.setPhoto(url);
+                   UsersModel.instance.addUser(user, ()-> {
+                       Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
+                       navController.navigate(R.id.action_registerFragment_to_homeFragment);
+                   });
+                });
             }
             else{
                 Toast.makeText(getActivity(), "Register not succeeded", Toast.LENGTH_LONG).show();

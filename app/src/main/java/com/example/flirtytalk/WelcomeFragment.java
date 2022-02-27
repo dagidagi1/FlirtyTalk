@@ -1,27 +1,28 @@
 package com.example.flirtytalk;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
-import androidx.navigation.NavGraph;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
+import com.example.flirtytalk.Model.UsersModel;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class WelcomeFragment extends Fragment {
 
-    FirebaseAuth mAuth;
     NavController navController;
+    Button login_btn, register_btn;
+    ProgressBar progressBar;
 
     public WelcomeFragment() {
         // Required empty public constructor
@@ -36,23 +37,28 @@ public class WelcomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
         navController = Navigation.findNavController(view);
-        Button login_btn = view.findViewById(R.id.to_login_frame_btn);
-        Button register_btn = view.findViewById(R.id.to_register_frame_btn);
+        login_btn = view.findViewById(R.id.to_login_frame_btn);
+        register_btn = view.findViewById(R.id.to_register_frame_btn);
+        progressBar = view.findViewById(R.id.welcome_progress_bar);
         login_btn.setOnClickListener(p -> navController.navigate(R.id.action_welcomeFragment_to_logInFragment));
         register_btn.setOnClickListener(p -> navController.navigate(R.id.action_welcomeFragment_to_registerFragment));
     }
 
-    /*@Override
+    @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            String id = currentUser.getUid();
-            WelcomeFragmentDirections.ActionWelcomeFragmentToHomeFragment action = WelcomeFragmentDirections.actionWelcomeFragmentToHomeFragment(id);
-            navController.navigate(action);
-        }
-    }*/
+        login_btn.setEnabled(false);
+        register_btn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        UsersModel.instance.getCurrentUser((id -> {
+            if (id != null) {
+                navController.navigate(R.id.action_welcomeFragment_to_homeFragment);
+            } else {
+                login_btn.setEnabled(true);
+                register_btn.setEnabled(true);
+                progressBar.setVisibility(View.GONE);
+            }
+        }));
+    }
 }
