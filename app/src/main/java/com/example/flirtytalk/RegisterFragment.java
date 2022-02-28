@@ -1,6 +1,7 @@
 package com.example.flirtytalk;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -98,7 +99,8 @@ public class RegisterFragment extends Fragment {
                 User user = new User(id, name, gender);
                 UsersModel.instance.addUser(user, ()-> {
                     Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
-                    navController.navigate(R.id.action_registerFragment_to_homeFragment);
+                    startActivity(new Intent(getActivity(), AppActivity.class));
+                    getActivity().finish();
                 });
             }
             else{
