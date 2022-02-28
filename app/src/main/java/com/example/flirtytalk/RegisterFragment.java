@@ -3,13 +3,6 @@ package com.example.flirtytalk;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +12,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
@@ -99,7 +98,7 @@ public class RegisterFragment extends Fragment {
                 User user = new User(id, name, gender);
                 UsersModel.instance.addUser(user, ()-> {
                     Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getActivity(), AppActivity.class));
+                    startActivity(new Intent(getActivity(), GeneralActivity.class));
                     getActivity().finish();
                 });
             }

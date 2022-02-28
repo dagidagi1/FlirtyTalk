@@ -2,13 +2,6 @@ package com.example.flirtytalk;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.flirtytalk.Model.UsersModel;
 
@@ -68,7 +67,7 @@ public class LogInFragment extends Fragment {
         UsersModel.instance.loginUser(email, password,(id)->{
             if(id!= null){
                 Toast.makeText(getActivity(), "Signed in successfully", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(), AppActivity.class);
+                Intent intent = new Intent(getActivity(), GeneralActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

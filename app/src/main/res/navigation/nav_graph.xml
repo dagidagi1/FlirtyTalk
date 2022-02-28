@@ -42,9 +42,9 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.flirtytalk.HomeFragment"
+        android:name="com.example.flirtytalk.HomePageFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_homepage" >
         <action
             android:id="@+id/action_homeFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />

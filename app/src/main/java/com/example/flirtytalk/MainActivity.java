@@ -1,13 +1,12 @@
 package com.example.flirtytalk;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.flirtytalk.Model.UsersModel;
 
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         navController = nav_host.getNavController();
         UsersModel.instance.getCurrentUser((id -> {
             if (id != null) {
-                startActivity(new Intent(this, AppActivity.class));
+                startActivity(new Intent(this, GeneralActivity.class));
                 finish();
             }
         }));
