@@ -1,11 +1,11 @@
 package com.example.flirtytalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.flirtytalk.Model.UsersModel;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class WelcomeFragment extends Fragment {
 
@@ -45,7 +44,7 @@ public class WelcomeFragment extends Fragment {
         register_btn.setOnClickListener(p -> navController.navigate(R.id.action_welcomeFragment_to_registerFragment));
     }
 
-    @Override
+    /*@Override
     public void onStart() {
         super.onStart();
         login_btn.setEnabled(false);
@@ -53,12 +52,13 @@ public class WelcomeFragment extends Fragment {
         progressBar.setVisibility(View.VISIBLE);
         UsersModel.instance.getCurrentUser((id -> {
             if (id != null) {
-                navController.navigate(R.id.action_welcomeFragment_to_homeFragment);
+                startActivity(new Intent(getActivity(), AppActivity.class));
+                getActivity().finish();
             } else {
                 login_btn.setEnabled(true);
                 register_btn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
             }
         }));
-    }
+    }*/
 }

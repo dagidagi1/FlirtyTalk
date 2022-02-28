@@ -1,5 +1,6 @@
 package com.example.flirtytalk;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -62,8 +63,9 @@ public class HomeFragment extends Fragment {
             }
         });
         logout_btn.setOnClickListener(v -> {
-            //UsersModel.instance.logout();
-            navController.navigate(R.id.action_homeFragment_to_addPostFragment);
+            UsersModel.instance.logout();
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
         });
     }
 

@@ -8,6 +8,8 @@ import androidx.navigation.fragment.NavHostFragment;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.flirtytalk.Model.UsersModel;
+
 public class MainActivity extends AppCompatActivity {
 
     NavController navController;
@@ -17,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         NavHostFragment nav_host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.main_nav_controller);
         navController = nav_host.getNavController();
+        UsersModel.instance.getCurrentUser((id -> {
+            if (id != null) {
+                startActivity(new Intent(this, AppActivity.class));
+                finish();
+            }
+        }));
     }
 
     @Override
