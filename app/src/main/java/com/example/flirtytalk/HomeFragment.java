@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.flirtytalk.Model.UsersModel;
 
@@ -52,9 +54,16 @@ public class HomeFragment extends Fragment {
         home_rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
         MyAdapter adapter = new MyAdapter(16);
         home_rv.setAdapter(adapter);
+        adapter.setOnItemClickListener(new OnItemClickListner() {
+            @Override
+            public void onClick(int position) {
+                //Here we get the index for passing to the post.
+                Log.d("TAG", "" + position);
+            }
+        });
         logout_btn.setOnClickListener(v -> {
             //UsersModel.instance.logout();
-            navController.navigate(R.id.action_homeFragment_to_postDetailsFragment);
+            navController.navigate(R.id.action_homeFragment_to_addPostFragment);
         });
     }
 
@@ -64,26 +73,44 @@ public class HomeFragment extends Fragment {
         //init all row values.
         TextView tv;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, OnItemClickListner m_listener) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(m_listener != null){
+                        int pos = getAdapterPosition();
+                        if(pos != RecyclerView.NO_POSITION) {
+                            m_listener.onClick(pos);
+                        }
+                    }
+                }
+            });
             tv = itemView.findViewById(R.id.post_view_name_tv);
 
         }
     }
-
+    interface OnItemClickListner{
+        void onClick(int position);
+    }
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         List<String> data;
+        private OnItemClickListner m_listener;
         MyAdapter(int num){
             data = new LinkedList<String>();
             for(int i = 0; i < num; i++)
                 data.add("Name " + i);
         }
+        void setOnItemClickListener(OnItemClickListner listener){
+            m_listener = listener;
+        }
+
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             //init row
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view, null);
-            MyViewHolder holder = new MyViewHolder(v);
+            MyViewHolder holder = new MyViewHolder(v, m_listener);
             return holder;
         }
 
