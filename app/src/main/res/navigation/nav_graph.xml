@@ -53,7 +53,8 @@
             app:destination="@id/postDetailsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_addPostFragment"
-            app:destination="@id/addPostFragment" />
+            app:destination="@id/addPostFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/postDetailsFragment"

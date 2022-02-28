@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.flirtytalk.Model.Post;
+import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.Model.UsersModel;
 
 import java.util.LinkedList;
@@ -32,7 +34,14 @@ public class HomeFragment extends Fragment {
     RecyclerView home_rv;
     String id;
     ImageButton logout_btn;
-
+    MyAdapter adapter;
+    List<Post> data;
+    private void updateData(){
+        PostModel.instance.getAllPosts((d)->{
+            data = d;
+            adapter.notifyDataSetChanged();
+        });
+    }
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -46,32 +55,30 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UsersModel.instance.getCurrentUser((userId)->{id = userId;});
+        UsersModel.instance.getCurrentUser((userId) -> {
+            id = userId;
+        });
         navController = Navigation.findNavController(view);
         logout_btn = view.findViewById(R.id.home_logout_btn);
         home_rv = view.findViewById(R.id.home_rv);
         home_rv.setHasFixedSize(true);
-        home_rv.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-        MyAdapter adapter = new MyAdapter(16);
+        home_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        data = null;
+        adapter = new MyAdapter();
         home_rv.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListner() {
-            @Override
-            public void onClick(int position) {
-                //Here we get the index for passing to the post.
-                Log.d("TAG", "" + position);
-            }
-        });
+        adapter.setOnItemClickListener((position)-> {Log.d("TAG", "" + position);});
         logout_btn.setOnClickListener(v -> {
             //UsersModel.instance.logout();
             navController.navigate(R.id.action_homeFragment_to_addPostFragment);
         });
+        updateData();
     }
-
     RecyclerView posts_list;
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         //init all row values.
-        TextView tv;
+        TextView name_tv, age_tv, city_tv, gender_tv;
+        //photo
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListner m_listener) {
             super(itemView);
@@ -86,21 +93,18 @@ public class HomeFragment extends Fragment {
                     }
                 }
             });
-            tv = itemView.findViewById(R.id.post_view_name_tv);
-
+            name_tv = itemView.findViewById(R.id.post_view_name_tv);
+            city_tv = itemView.findViewById(R.id.post_view_city);
+            gender_tv = itemView.findViewById(R.id.post_view_gender_tv);
+            age_tv = itemView.findViewById(R.id.post_view_age_tv);
         }
     }
+
     interface OnItemClickListner{
         void onClick(int position);
     }
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-        List<String> data;
         private OnItemClickListner m_listener;
-        MyAdapter(int num){
-            data = new LinkedList<String>();
-            for(int i = 0; i < num; i++)
-                data.add("Name " + i);
-        }
         void setOnItemClickListener(OnItemClickListner listener){
             m_listener = listener;
         }
@@ -117,11 +121,15 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
             //init row data
-            holder.tv.setText(data.get(position));
+            holder.name_tv.setText(data.get(position).getUser_id());
+            //holder.age_tv.setText(data.get(position).getAge());
+            holder.gender_tv.setText("vezdehod");
+            holder.city_tv.setText(data.get(position).getCity());
         }
 
         @Override
         public int getItemCount() {
+            if(data == null ) return 0;
             return data.size();
         }
     }

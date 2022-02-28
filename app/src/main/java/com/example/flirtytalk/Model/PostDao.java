@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface PostDao {
-    @Query("SELECT * FROM Post")
+    @Query("SELECT * FROM Post ")
     List<Post> getAllPosts();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

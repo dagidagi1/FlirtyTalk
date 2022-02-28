@@ -27,7 +27,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Phone"
-        android:inputType="textPersonName"
+        android:numeric="integer"
+        android:inputType="phone"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,14 +48,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/new_post_phone" />
 
-    <EditText
-        android:id="@+id/new_post_age"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/spn"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:ems="10"
         android:hint="Age"
-        android:inputType="textPersonName"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +70,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_post_age" />
+        app:layout_constraintTop_toBottomOf="@+id/spn" />
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -97,5 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

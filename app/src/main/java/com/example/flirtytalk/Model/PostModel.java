@@ -16,7 +16,7 @@ public class PostModel {
     public void getAllPosts(getAllPostsListener listener){
         postModelFireBase.getAllPosts(listener);
         /*MyApplication.executorService.execute(()->{
-            List<User> data = PostLocalDB.db.postDao().getAllPosts();
+            List<Post> data = PostLocalDB.db.postDao().getAllPosts();
             MyApplication.mainHandler.post(()->{
                 listener.onComplete(data);
             });
@@ -29,7 +29,7 @@ public class PostModel {
     public void addPost(Post post, addPostListener listener){
         postModelFireBase.addPost(post, listener);
         /*MyApplication.executorService.execute(()->{
-            UsersLocalDB.db.userDao().insert(user);
+            PostLocalDB.db.postDao().insert(post);
             MyApplication.mainHandler.post(()->{
                 listener.onComplete();
             });

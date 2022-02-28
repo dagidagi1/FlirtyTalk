@@ -7,7 +7,7 @@
     android:background="?attr/selectableItemBackground">
 
         <ImageView
-            android:id="@+id/home_avatar_bg"
+            android:id="@+id/post_view_avatar_bg"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="5dp"
@@ -21,17 +21,17 @@
             app:srcCompat="@drawable/welcome_btns" />
 
         <ImageView
-            android:id="@+id/home_avatar"
+            android:id="@+id/post_view_avatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="1dp"
             android:contentDescription="@string/avatar"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toTopOf="@+id/post_view_name_tv"
-            app:layout_constraintEnd_toEndOf="@+id/home_avatar_bg"
+            app:layout_constraintEnd_toEndOf="@+id/post_view_avatar_bg"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/home_avatar_bg"
-            app:layout_constraintTop_toTopOf="@+id/home_avatar_bg"
+            app:layout_constraintStart_toStartOf="@+id/post_view_avatar_bg"
+            app:layout_constraintTop_toTopOf="@+id/post_view_avatar_bg"
             app:srcCompat="@drawable/avatar_male" />
 
         <TextView
@@ -42,14 +42,14 @@
             android:gravity="left|center_vertical"
             android:text="Name"
             android:textSize="11sp"
-            app:layout_constraintEnd_toStartOf="@+id/home_age_tv"
+            app:layout_constraintEnd_toStartOf="@+id/post_view_age_tv"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/home_avatar_bg"
-            app:layout_constraintStart_toStartOf="@+id/home_avatar_bg"
-            app:layout_constraintTop_toBottomOf="@+id/home_avatar" />
+            app:layout_constraintStart_toEndOf="@+id/post_view_avatar_bg"
+            app:layout_constraintStart_toStartOf="@+id/post_view_avatar_bg"
+            app:layout_constraintTop_toBottomOf="@+id/post_view_avatar" />
 
         <TextView
-            android:id="@+id/home_age_tv"
+            android:id="@+id/post_view_age_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
@@ -57,8 +57,8 @@
             android:gravity="right|center_vertical"
             android:text="Age"
             android:textSize="11sp"
-            app:layout_constraintTop_toBottomOf="@id/home_avatar"
-            app:layout_constraintEnd_toEndOf="@+id/home_avatar_bg"
+            app:layout_constraintTop_toBottomOf="@id/post_view_avatar"
+            app:layout_constraintEnd_toEndOf="@+id/post_view_avatar_bg"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/post_view_name_tv" />
 
@@ -70,11 +70,11 @@
             android:text="City"
             android:gravity="left|center_vertical"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/home_avatar_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/post_view_avatar_bg"
             app:layout_constraintEnd_toStartOf="@+id/post_view_gender_tv"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/home_avatar_bg"
-            app:layout_constraintStart_toStartOf="@+id/home_avatar_bg"
+            app:layout_constraintStart_toEndOf="@+id/post_view_avatar_bg"
+            app:layout_constraintStart_toStartOf="@+id/post_view_avatar_bg"
             app:layout_constraintTop_toBottomOf="@+id/post_view_name_tv" />
 
         <TextView
@@ -85,9 +85,9 @@
             android:text="Gender"
             android:gravity="right|center_vertical"
             android:textSize="11sp"
-            app:layout_constraintBottom_toBottomOf="@+id/home_avatar_bg"
-            app:layout_constraintEnd_toEndOf="@+id/home_avatar_bg"
+            app:layout_constraintBottom_toBottomOf="@+id/post_view_avatar_bg"
+            app:layout_constraintEnd_toEndOf="@+id/post_view_avatar_bg"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/post_view_city"
-            app:layout_constraintTop_toBottomOf="@+id/home_age_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/post_view_age_tv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

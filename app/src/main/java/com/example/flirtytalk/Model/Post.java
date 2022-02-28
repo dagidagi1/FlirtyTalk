@@ -16,7 +16,7 @@ public class Post {
     private String user_id, phone, text, city, photo;
     private Integer age;
     boolean deleted;
-
+    //private final Boolean t = true;
 
     public Post(){
     }
@@ -84,11 +84,11 @@ public class Post {
         String user_id = ((String)json.get("user_id"));
         String text = ((String)json.get("text"));
         String phone = ((String)json.get("phone"));
-        Integer age = ((Integer)json.get("age"));
+        //Integer age = (Integer) json.get("age");
         String city = ((String)json.get("city"));
         String photo = ((String)json.get("photo"));
-        boolean deleted = ((boolean)json.get("deleted"));
-        Post post = new Post(id, user_id, age, phone, city, text, photo, deleted);
+        //boolean deleted = ((boolean)json.get("deleted"));
+        Post post = new Post(id, user_id, 11, phone, city, text, photo, false);
         return post;
     }
 }
