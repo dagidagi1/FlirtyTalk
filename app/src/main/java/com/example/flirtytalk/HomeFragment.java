@@ -53,8 +53,8 @@ public class HomeFragment extends Fragment {
         MyAdapter adapter = new MyAdapter(16);
         home_rv.setAdapter(adapter);
         logout_btn.setOnClickListener(v -> {
-            UsersModel.instance.logout();
-            navController.navigate(R.id.action_homeFragment_to_welcomeFragment);
+            //UsersModel.instance.logout();
+            navController.navigate(R.id.action_homeFragment_to_postDetailsFragment);
         });
     }
 
