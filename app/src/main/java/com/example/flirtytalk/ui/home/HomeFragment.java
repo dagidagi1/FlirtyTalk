@@ -12,19 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentHomeBinding;
-
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -77,9 +73,7 @@ public class HomeFragment extends Fragment {
             Log.d("TAG", "" + position);
         });
         Button btn = view.findViewById(R.id.button12);
-        viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
-                    adapter.notifyDataSetChanged();
-                });
+        viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> adapter.notifyDataSetChanged());
         btn.setOnClickListener(x->adapter.notifyDataSetChanged());
     }
 

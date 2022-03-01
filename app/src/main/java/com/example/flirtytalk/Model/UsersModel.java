@@ -31,7 +31,7 @@ public class UsersModel {
             MyApplication.executorService.execute(()->{
                 for(User u : list){
                     UsersLocalDB.db.userDao().insert(u);
-                    if (u.getLastUpdated() > Post.getLocalLastUpdated()){
+                    if (u.getLastUpdated() > User.getLocalLastUpdated()){
                         User.setLocalLastUpdated(u.getLastUpdated());
                     }
                 }
