@@ -100,7 +100,7 @@ public class HomeFragment extends Fragment {
                             m_listener.onClick(pos);
                             Log.d("tag", ""+pos);
                             Bundle bundle = new Bundle();
-                            HomeFragmentDirections.ActionNavHomeToPostDetailsFragment action = HomeFragmentDirections.actionNavHomeToPostDetailsFragment("" + pos);
+                            HomeFragmentDirections.ActionNavHomeToPostDetailsFragment action = HomeFragmentDirections.actionNavHomeToPostDetailsFragment(""+pos);
                             Navigation.findNavController(v).navigate(action);
                         }
                     }

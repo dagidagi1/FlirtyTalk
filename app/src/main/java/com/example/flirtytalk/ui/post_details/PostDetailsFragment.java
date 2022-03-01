@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.flirtytalk.R;
+import com.example.flirtytalk.ui.home.HomeFragmentDirections;
 import com.example.flirtytalk.ui.home.HomeViewModel;
 
 public class PostDetailsFragment extends Fragment {
@@ -53,10 +54,11 @@ public class PostDetailsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView tv = view.findViewById(R.id.post_details_name_tv);
-        int pos = getArguments().getInt("pos");
+        int pos = Integer.valueOf(PostDetailsFragmentArgs.fromBundle(getArguments()).getPos());
         //Post - viewModel.getData().getValue().get(pos)
+
         name_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
-        age_tv.setText("" + viewModel.getData().getValue().get(pos).getAge());
+        age_tv.setText(viewModel.getData().getValue().get(pos).getAge()+"");
         city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
         text_tv.setText(viewModel.getData().getValue().get(pos).getText());
         phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
