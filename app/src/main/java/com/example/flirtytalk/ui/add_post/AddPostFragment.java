@@ -79,7 +79,7 @@ public class AddPostFragment extends Fragment {
                 p.setPhoto(url);
                 Toast.makeText(getActivity(), ""+ url, Toast.LENGTH_LONG).show();
                 PostModel.instance.addPost(p,()->{
-                    Navigation.findNavController(view).navigateUp();
+                    //Navigation.findNavController(view).navigateUp();
                     Toast.makeText(getActivity(), ""+ p.getId(), Toast.LENGTH_LONG).show();
                 });
             });

@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 
 import com.example.flirtytalk.My_application.MyApplication;
 
-@Database(entities = {Post.class}, version = 2)
+@Database(entities = {Post.class}, version = 4)
 abstract class PostsLocalDbRepository extends RoomDatabase{
     public abstract PostDao postDao();
 }

@@ -1,15 +1,18 @@
 package com.example.flirtytalk.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -27,17 +30,28 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    HomeViewModel viewModel;
     NavController navController;
     RecyclerView home_rv;
     String id;
     HomeFragment.MyAdapter adapter;
-    List<Post> data;
-    private void updateData(){
-        PostModel.instance.getAllPosts((d)->{
-            data = d;
-            adapter.notifyDataSetChanged();
-        });
+    LiveData<List<Post>> post_list_ld;
+
+//    private void updateData(){
+//        //swipe refresh
+//        PostModel.instance.getAllPosts((d)->{
+//            viewModel.setData(d);
+//            adapter.notifyDataSetChanged();
+//            Log.d("tag","Gavno updated"+ d.size());
+//        });
+//    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         HomeViewModel homeViewModel =
@@ -58,13 +72,17 @@ public class HomeFragment extends Fragment {
         home_rv = view.findViewById(R.id.home_rv);
         home_rv.setHasFixedSize(true);
         home_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        data = null;
+        //data = null;
         adapter = new HomeFragment.MyAdapter();
         home_rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position) -> {
             Log.d("TAG", "" + position);
         });
-        updateData();
+        Button btn = view.findViewById(R.id.button12);
+        viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
+                    adapter.notifyDataSetChanged();
+                });
+        btn.setOnClickListener(x->adapter.notifyDataSetChanged());
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -117,16 +135,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull HomeFragment.MyViewHolder holder, int position) {
             //init row data
-            holder.name_tv.setText(data.get(position).getUser_id());
-            holder.age_tv.setText(data.get(position).getAge().toString());
-            holder.gender_tv.setText(String.valueOf(data.get(position).getDeleted()));
-            holder.city_tv.setText(data.get(position).getCity());
+            holder.name_tv.setText(post_list_ld.getValue().get(position).getUser_id());
+            holder.age_tv.setText(post_list_ld.getValue().get(position).getAge().toString());
+            holder.gender_tv.setText(String.valueOf(post_list_ld.getValue().get(position).getDeleted()));
+            holder.city_tv.setText(post_list_ld.getValue().get(position).getCity());
         }
 
         @Override
         public int getItemCount() {
-            if(data == null ) return 0;
-            return data.size();
+            if(post_list_ld == null ) return 0;
+            return post_list_ld.getValue().size();
         }
     }
 

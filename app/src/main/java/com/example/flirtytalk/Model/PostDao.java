@@ -20,6 +20,9 @@ public interface PostDao {
     @Update
     void update(Post post);
 
+    @Query("SELECT * FROM Post WHERE Post.id=:id")
+    Post getPostById(String id);
+
     @Query("SELECT * FROM Post WHERE user_id=:id ")
     List<Post> getPosts(String id);
 }

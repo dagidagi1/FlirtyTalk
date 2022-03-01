@@ -27,8 +27,9 @@ public class PostModelFireBase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public void getAllPosts(PostModel.getAllPostsListener listener) {
+    public void getAllPosts(Long since, PostModel.getAllPostsListener listener) {
         db.collection("Post")
+                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED,new Timestamp(since))
                 .get()
                 .addOnCompleteListener(task -> {
                     LinkedList<Post> postsList = new LinkedList<>();
@@ -50,7 +51,7 @@ public class PostModelFireBase {
                 .addOnFailureListener(e -> Log.d("TAG", "Error writing document", e));
     }
 
-    public void getPost(String postId, PostModel.getPostListener listener) {
+    public void getPostById(String postId, PostModel.getPostByIdListener listener) {
         DocumentReference docRef = db.collection("Post").document(postId);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
