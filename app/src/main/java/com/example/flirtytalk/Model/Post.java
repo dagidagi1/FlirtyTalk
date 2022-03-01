@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FieldValue;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 @Entity
 public class Post {
@@ -32,7 +33,8 @@ public class Post {
     public Post(){
     }
     public Post(String user_id, Integer age, String phone, String city, String text, String photo){
-        id = user_id;
+        Random random = new Random();
+        id = String.valueOf(random.nextLong());
         this.user_id = user_id;
         this.age = age;
         this.text = text;
@@ -77,7 +79,7 @@ public class Post {
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
-        json.put("id", getId() + "" + FieldValue.serverTimestamp());
+        json.put("id", getId());
         json.put("user_id", getUser_id());
         json.put("age", getAge());
         json.put("text", getText());

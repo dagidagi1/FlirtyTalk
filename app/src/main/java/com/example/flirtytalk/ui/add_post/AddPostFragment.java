@@ -20,11 +20,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.PostModel;
-import com.example.flirtytalk.Model.PostModelFireBase;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 
@@ -40,6 +40,7 @@ public class AddPostFragment extends Fragment {
     private Button add_btn;
     private ImageButton take_pic_btn;
     private Bitmap postPicBitmap;
+    NavController navController;
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -79,12 +80,12 @@ public class AddPostFragment extends Fragment {
                 p.setPhoto(url);
                 Toast.makeText(getActivity(), ""+ url, Toast.LENGTH_LONG).show();
                 PostModel.instance.addPost(p,()->{
-                    //Navigation.findNavController(view).navigateUp();
+                    navController.navigateUp();
                     Toast.makeText(getActivity(), ""+ p.getId(), Toast.LENGTH_LONG).show();
                 });
             });
         });
-        }
+    }
     static final int REQUEST_IMAGE_CAPTURE = 1;
     final static int RESAULT_SUCCESS = 0;
     private void dispatchTakePictureIntent() {
@@ -107,11 +108,8 @@ public class AddPostFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
         add_btn.setOnClickListener(unused -> add_post(view));
         take_pic_btn.setOnClickListener(unused-> dispatchTakePictureIntent());
-
-
-        //PostModel.instance.addPost(new Post());
-        //ADD post to db.
     }
 }

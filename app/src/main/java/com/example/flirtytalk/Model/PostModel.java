@@ -1,7 +1,6 @@
 package com.example.flirtytalk.Model;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -23,25 +22,14 @@ public class PostModel {
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
 
     private void reloadPostsList() {
-        //1. get local last update
-        Long localLastUpdate = Post.getLocalLastUpdated();
-        Log.d("TAG","localLastUpdate: " + localLastUpdate);
-        //2. get all students record since local last update from firebase
-        postModelFireBase.getAllPosts(localLastUpdate,(list)->{
+        postModelFireBase.getAllPosts(Post.getLocalLastUpdated(),(list)->{
             MyApplication.executorService.execute(()->{
-                //3. update local last update date
-                //4. add new records to the local db
-                Log.d("TAG", "FB returned " + list.size());
                 for(Post s : list){
                     PostLocalDB.db.postDao().insert(s);
                     if (s.getLastUpdated() > Post.getLocalLastUpdated()){
-                        //lLastUpdate = s.getLastUpdated();
                         Post.setLocalLastUpdated(s.getLastUpdated());
                     }
                 }
-
-
-                //5. return all records to the caller
                 List<Post> post_List = PostLocalDB.db.postDao().getAllPosts();
                 post_list_ld.postValue(post_List);
             });
@@ -54,61 +42,48 @@ public class PostModel {
     public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
-    public void getAllPosts(getAllPostsListener listener){
-
-        postModelFireBase.getAllPosts(Post.getLocalLastUpdated(), listener);
-        MyApplication.executorService.execute(()->{
-            List<Post> data = PostLocalDB.db.postDao().getAllPosts();
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete(data);
-            });
-        });
-    }
 
     public interface addPostListener {
         void onComplete();
     }
+
     public void addPost(Post post, addPostListener listener){
         postModelFireBase.addPost(post, ()->{
             reloadPostsList();
             listener.onComplete();
-                });
+        });
+    }
+
+    public interface getPostsListener {
+        void onComplete(List<Post> postList);
+    }
+
+    public void getPosts(String userId, getPostsListener listener) {
         MyApplication.executorService.execute(()->{
-            PostLocalDB.db.postDao().insert(post);
+            List<Post> postList = PostLocalDB.db.postDao().getPosts(userId);
             MyApplication.mainHandler.post(()->{
-                listener.onComplete();
+                listener.onComplete(postList);
             });
         });
     }
 
-    public interface getPostByIdListener {
-        void onComplete(Post post);
-    }
-    public void getPostById(String postId, getPostByIdListener listener) {
-        postModelFireBase.getPostById(postId, listener);
-        MyApplication.executorService.execute(()->{
-            Post post = PostLocalDB.db.postDao().getPostById(postId);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete(post);
-            });
-        });
-    }
-
-    /*public interface updatePostListener {
+    public interface deletePostListener {
         void onComplete();
     }
-    public void updatePost(Post post, updatePostListener listener) {
-        postModelFireBase.updatePost(post, listener);
-        *//*MyApplication.executorService.execute(()->{
-            UsersLocalDB.db.userDao().update(user);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });*//*
-    }*/
+
+    public void deletePost(String postId, deletePostListener listener) {
+        postModelFireBase.deletePost(postId, ()->{
+            reloadPostsList();
+            listener.onComplete();
+        });
+
+    }
+
+
     public interface saveImageListener {
         void onComplete(String url);
     }
+
     public void saveImage(Bitmap img_bitmap,String post_id, saveImageListener listener) {
         postModelFireBase.saveImage(img_bitmap,post_id,listener);
     }

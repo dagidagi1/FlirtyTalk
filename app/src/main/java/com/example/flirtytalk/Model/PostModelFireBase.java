@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
@@ -44,34 +43,16 @@ public class PostModelFireBase {
                 .addOnFailureListener(e -> Log.d("TAG", "Error writing document", e));
     }
 
-    public void getPostById(String postId, PostModel.getPostByIdListener listener) {
-        DocumentReference docRef = db.collection("Post").document(postId);
-        docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                DocumentSnapshot document = task.getResult();
-                if (document.exists()) {
-                    Post post = Post.fromJson(document.getData());
-                    listener.onComplete(post);
-                } else {
-                    listener.onComplete(null);
-                }
-            } else {
-                Log.d("TAG", "get failed with ", task.getException());
-                listener.onComplete(null);
-            }
-        });
-    }
 
-   /* public void updateUser(User user, UsersModel.updateUserListener listener) {
-        DocumentReference userRef = db.collection("Users").document(user.getId());
-        userRef
-                .update("phone", user.getPhone(),"bio", user.getBio())
-                .addOnSuccessListener((successListener)-> listener.onComplete())
+    public void deletePost(String postId, PostModel.deletePostListener listener) {
+        DocumentReference docRef = db.collection("Post").document(postId);
+        docRef.update("deleted", true)
+                .addOnSuccessListener((successListener)->listener.onComplete())
                 .addOnFailureListener((e)->{
                     Log.w("TAG", "Error updating document", e);
                     listener.onComplete();
                 });
-    }*/
+    }
 
     public void saveImage(Bitmap image, String id, PostModel.saveImageListener listener) {
         if(image == null){listener.onComplete(null); return;}
