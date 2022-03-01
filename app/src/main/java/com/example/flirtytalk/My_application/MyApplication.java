@@ -1,4 +1,4 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.My_application;
 
 import android.app.Application;
 import android.content.Context;

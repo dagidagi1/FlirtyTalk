@@ -1,4 +1,4 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.ui.register;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,9 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.flirtytalk.Activities.GeneralActivity;
 import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
-
+import com.example.flirtytalk.R;
 
 
 public class RegisterFragment extends Fragment {

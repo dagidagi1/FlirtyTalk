@@ -1,4 +1,4 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import com.example.flirtytalk.Activities.GeneralActivity;
 import com.example.flirtytalk.Model.UsersModel;
+import com.example.flirtytalk.R;
 
 
 public class LogInFragment extends Fragment {

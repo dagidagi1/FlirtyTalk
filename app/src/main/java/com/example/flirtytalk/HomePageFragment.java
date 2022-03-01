@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.flirtytalk.Activities.MainActivity;
 import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.Model.UsersModel;

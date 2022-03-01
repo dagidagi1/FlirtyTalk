@@ -13,6 +13,7 @@
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1195" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/ic_avatar_female.xml" value="0.1195" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/ic_avatar_male.xml" value="0.1195" />
+        <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/ic_menu_gallery.xml" value="0.1185" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/welcome_btns.xml" value="0.1195" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/activity_app.xml" value="0.1796875" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/activity_app2.xml" value="0.1" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_home.xml" value="0.17692307692307693" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_homepage.xml" value="0.1796875" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_log_in.xml" value="0.1796875" />
+        <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_logout.xml" value="0.14673913043478262" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_post_details.xml" value="0.1796875" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_register.xml" value="0.22" />
         <entry key="..\:/Users/dyach/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_slideshow.xml" value="0.1796875" />

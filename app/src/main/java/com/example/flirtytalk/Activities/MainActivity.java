@@ -1,4 +1,4 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.flirtytalk.Model.UsersModel;
+import com.example.flirtytalk.R;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;

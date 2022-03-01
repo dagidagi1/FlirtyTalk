@@ -1,11 +1,7 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -13,7 +9,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.flirtytalk.Model.UsersModel;
+import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.ActivityGeneralBinding;
 import com.google.android.material.navigation.NavigationView;
 
@@ -39,23 +35,6 @@ public class GeneralActivity extends AppCompatActivity {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_general);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (!super.onOptionsItemSelected(item)) {
-            Log.d("TAG", String.valueOf(item.getItemId()) + " = "+ String.valueOf(R.id.nav_log_out));
-            switch (item.getItemId()) {
-                case R.id.nav_log_out:
-                    UsersModel.instance.logout();
-                    finish();
-                    startActivity(new Intent(this, MainActivity.class));
-                    return true;
-                default:
-                    return NavigationUI.onNavDestinationSelected(item, navController);
-            }
-        }
-        return true;
     }
 
     @Override

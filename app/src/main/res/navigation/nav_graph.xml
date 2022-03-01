@@ -6,7 +6,7 @@
     app:startDestination="@id/welcomeFragment">
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.example.flirtytalk.WelcomeFragment"
+        android:name="com.example.flirtytalk.ui.welcome.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome" >
         <action
@@ -18,12 +18,12 @@
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.example.flirtytalk.LogInFragment"
+        android:name="com.example.flirtytalk.ui.login.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.flirtytalk.RegisterFragment"
+        android:name="com.example.flirtytalk.ui.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
 </navigation>

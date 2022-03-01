@@ -1,12 +1,6 @@
-package com.example.flirtytalk;
+package com.example.flirtytalk.ui.add_post;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +10,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.Model.UsersModel;
+import com.example.flirtytalk.R;
 
 import java.util.ArrayList;
 import java.util.List;

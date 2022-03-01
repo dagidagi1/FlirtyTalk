@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:foregroundTint="#00FFFFFF"
-    tools:context=".AddPostFragment">
+    tools:context=".ui.add_post.AddPostFragment">
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/nav_profile_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -57,7 +57,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/nav_profile_photo" />
 
     <EditText
         android:id="@+id/new_post_city"
@@ -77,8 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView"
-        app:layout_constraintEnd_toEndOf="@+id/imageView" />
+        app:layout_constraintBottom_toBottomOf="@+id/nav_profile_photo"
+        app:layout_constraintEnd_toEndOf="@+id/nav_profile_photo" />
 
     <Button
         android:id="@+id/new_post_add_btn"
