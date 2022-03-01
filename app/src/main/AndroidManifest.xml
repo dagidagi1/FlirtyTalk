@@ -16,9 +16,6 @@
             android:label="@string/title_activity_general"
             android:theme="@style/Theme.FlirtyTalk.NoActionBar" />
         <activity
-            android:name=".AppActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
