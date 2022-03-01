@@ -1,14 +1,11 @@
 package com.example.flirtytalk.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,8 +16,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.example.flirtytalk.ui.home.HomeFragment;
-import com.example.flirtytalk.MainActivity;
 import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.Model.UsersModel;
@@ -35,7 +30,6 @@ public class HomeFragment extends Fragment {
     NavController navController;
     RecyclerView home_rv;
     String id;
-    ImageButton logout_btn;
     HomeFragment.MyAdapter adapter;
     List<Post> data;
     private void updateData(){
@@ -61,7 +55,6 @@ public class HomeFragment extends Fragment {
             id = userId;
         });
         navController = Navigation.findNavController(view);
-        logout_btn = view.findViewById(R.id.home_logout_btn);
         home_rv = view.findViewById(R.id.home_rv);
         home_rv.setHasFixedSize(true);
         home_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -70,11 +63,6 @@ public class HomeFragment extends Fragment {
         home_rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position) -> {
             Log.d("TAG", "" + position);
-        });
-        logout_btn.setOnClickListener(v -> {
-            UsersModel.instance.logout();
-            startActivity(new Intent(getActivity(), MainActivity.class));
-            getActivity().finish();
         });
         updateData();
     }
@@ -95,8 +83,8 @@ public class HomeFragment extends Fragment {
                             m_listener.onClick(pos);
                             Log.d("tag", ""+pos);
                             Bundle bundle = new Bundle();
-                            bundle.putString("pos", pos);
-                            Navigation.findNavController(v).navigate(R.id.action_nav_home_to_postDetailsFragment, bundle);
+                            HomeFragmentDirections.ActionNavHomeToPostDetailsFragment action = HomeFragmentDirections.actionNavHomeToPostDetailsFragment("" + pos);
+                            Navigation.findNavController(v).navigate(action);
                         }
                     }
                 }

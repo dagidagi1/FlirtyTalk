@@ -22,10 +22,11 @@
             android:icon="@android:drawable/ic_input_add"
             android:title="Add post" />
 
-        <item
-            android:id="@+id/nav_log_out"
-            android:icon="?attr/actionModeCloseDrawable"
-            android:title="@string/logout" />
     </group>
+
+    <item
+        android:id="@+id/nav_log_out"
+        android:icon="?attr/actionModeCloseDrawable"
+        android:title="@string/logout" />
 
 </menu>
