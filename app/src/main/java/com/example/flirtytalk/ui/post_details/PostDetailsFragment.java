@@ -1,5 +1,6 @@
 package com.example.flirtytalk.ui.post_details;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.flirtytalk.R;
+import com.example.flirtytalk.ui.home.HomeViewModel;
 
 public class PostDetailsFragment extends Fragment {
 
     TextView name_tv,age_tv,city_tv,text_tv,phone_tv;
+    HomeViewModel viewModel;
     //photo
     public PostDetailsFragment() {
         // Required empty public constructor
@@ -25,6 +29,12 @@ public class PostDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     }
 
     @Override
@@ -44,6 +54,11 @@ public class PostDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView tv = view.findViewById(R.id.post_details_name_tv);
         int pos = getArguments().getInt("pos");
-
+        //Post - viewModel.getData().getValue().get(pos)
+        name_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
+        age_tv.setText("" + viewModel.getData().getValue().get(pos).getAge());
+        city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
+        text_tv.setText(viewModel.getData().getValue().get(pos).getText());
+        phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
     }
 }
