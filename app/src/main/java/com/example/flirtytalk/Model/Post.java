@@ -9,9 +9,9 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import com.example.flirtytalk.My_application.MyApplication;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
 
-import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -100,8 +100,8 @@ public class Post {
         Integer age = Integer.valueOf(Objects.requireNonNull(json.get("age")).toString());
         String city = ((String)json.get("city"));
         String photo = ((String)json.get("photo"));
-        //Log.d("TAGGG", (String)json.get(LAST_UPDATED));
-        //Timestamp ts = (Timestamp)json.get(LAST_UPDATED);
+        Timestamp ts = (Timestamp)json.get(LAST_UPDATED);
+        Post.setLocalLastUpdated(new Long(ts.getSeconds()));
         boolean deleted = (Boolean.getBoolean(Objects.requireNonNull(json.get("deleted")).toString()));
         Post post = new Post(id, user_id, age, phone, null, city, text, photo, false);
         return post;

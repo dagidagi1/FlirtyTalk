@@ -1,11 +1,9 @@
 package com.example.flirtytalk.Model;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,12 +13,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.LinkedList;
-import java.util.Locale;
-import java.util.Objects;
 
 
 public class PostModelFireBase {
@@ -29,7 +22,7 @@ public class PostModelFireBase {
 
     public void getAllPosts(Long since, PostModel.getAllPostsListener listener) {
         db.collection("Post")
-                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED,new Timestamp(since))
+                .whereGreaterThanOrEqualTo(Post.LAST_UPDATED, new Timestamp(since, 0))
                 .get()
                 .addOnCompleteListener(task -> {
                     LinkedList<Post> postsList = new LinkedList<>();

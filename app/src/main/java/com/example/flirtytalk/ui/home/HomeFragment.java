@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.flirtytalk.Model.Post;
-import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentHomeBinding;
@@ -135,16 +134,16 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull HomeFragment.MyViewHolder holder, int position) {
             //init row data
-            holder.name_tv.setText(post_list_ld.getValue().get(position).getUser_id());
-            holder.age_tv.setText(post_list_ld.getValue().get(position).getAge().toString());
-            holder.gender_tv.setText(String.valueOf(post_list_ld.getValue().get(position).getDeleted()));
-            holder.city_tv.setText(post_list_ld.getValue().get(position).getCity());
+            holder.name_tv.setText(viewModel.getData().getValue().get(position).getUser_id());
+            holder.age_tv.setText(viewModel.getData().getValue().get(position).getCity());
+            holder.gender_tv.setText(String.valueOf(viewModel.getData().getValue().get(position).getDeleted()));
+            holder.city_tv.setText(viewModel.getData().getValue().get(position).getCity());
         }
 
         @Override
         public int getItemCount() {
-            if(post_list_ld == null ) return 0;
-            return post_list_ld.getValue().size();
+            if(viewModel.getData().getValue() == null ) return 0;
+            return viewModel.getData().getValue().size();
         }
     }
 

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class HomeViewModel extends ViewModel {
 
-    private final MutableLiveData<List<Post>> post_list = (MutableLiveData<List<Post>>) PostModel.instance.getAll();
+    private MutableLiveData<List<Post>> post_list = (MutableLiveData<List<Post>>) PostModel.instance.getAll();
 
     public LiveData<List<Post>> getData() {
         return post_list;
