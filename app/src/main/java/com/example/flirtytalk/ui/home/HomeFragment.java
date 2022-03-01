@@ -34,7 +34,6 @@ public class HomeFragment extends Fragment {
     RecyclerView home_rv;
     String id;
     HomeFragment.MyAdapter adapter;
-    LiveData<List<Post>> post_list_ld;
 
 //    private void updateData(){
 //        //swipe refresh
@@ -53,7 +52,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
+        viewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -91,6 +90,10 @@ public class HomeFragment extends Fragment {
 
         public MyViewHolder(@NonNull View itemView, HomeFragment.OnItemClickListner m_listener) {
             super(itemView);
+            name_tv = itemView.findViewById(R.id.post_view_name_tv);
+            city_tv = itemView.findViewById(R.id.post_view_city);
+            gender_tv = itemView.findViewById(R.id.post_view_gender_tv);
+            age_tv = itemView.findViewById(R.id.post_view_age_tv);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -99,17 +102,13 @@ public class HomeFragment extends Fragment {
                         if(pos != RecyclerView.NO_POSITION) {
                             m_listener.onClick(pos);
                             Log.d("tag", ""+pos);
-                            Bundle bundle = new Bundle();
                             HomeFragmentDirections.ActionNavHomeToPostDetailsFragment action = HomeFragmentDirections.actionNavHomeToPostDetailsFragment(""+pos);
                             Navigation.findNavController(v).navigate(action);
                         }
                     }
                 }
             });
-            name_tv = itemView.findViewById(R.id.post_view_name_tv);
-            city_tv = itemView.findViewById(R.id.post_view_city);
-            gender_tv = itemView.findViewById(R.id.post_view_gender_tv);
-            age_tv = itemView.findViewById(R.id.post_view_age_tv);
+
         }
     }
 

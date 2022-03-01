@@ -19,7 +19,11 @@
         android:id="@+id/nav_gallery"
         android:name="com.example.flirtytalk.ui.gallery.GalleryFragment"
         android:label="My posts"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_logout"
@@ -40,4 +44,13 @@
         android:name="com.example.flirtytalk.ui.add_post.AddPostFragment"
         android:label="Add post"
         tools:layout="@layout/fragment_add_post" />
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.flirtytalk.ui.gallery.EditPostFragment"
+        android:label="fragment_edit_post"
+        tools:layout="@layout/fragment_edit_post" >
+        <argument
+            android:name="pos"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -55,8 +55,6 @@ public class PostDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView tv = view.findViewById(R.id.post_details_name_tv);
         int pos = Integer.valueOf(PostDetailsFragmentArgs.fromBundle(getArguments()).getPos());
-        //Post - viewModel.getData().getValue().get(pos)
-
         name_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
         age_tv.setText(viewModel.getData().getValue().get(pos).getAge()+"");
         city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
