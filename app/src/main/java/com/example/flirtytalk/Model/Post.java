@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Entity
 public class Post {
@@ -84,11 +85,11 @@ public class Post {
         String user_id = ((String)json.get("user_id"));
         String text = ((String)json.get("text"));
         String phone = ((String)json.get("phone"));
-        //Integer age = (Integer) json.get("age");
+        Integer age = Integer.valueOf(Objects.requireNonNull(json.get("age")).toString());
         String city = ((String)json.get("city"));
         String photo = ((String)json.get("photo"));
-        //boolean deleted = ((boolean)json.get("deleted"));
-        Post post = new Post(id, user_id, 11, phone, city, text, photo, false);
+        boolean deleted = (Boolean.getBoolean(Objects.requireNonNull(json.get("deleted")).toString()));
+        Post post = new Post(id, user_id, age, phone, city, text, photo, false);
         return post;
     }
 }

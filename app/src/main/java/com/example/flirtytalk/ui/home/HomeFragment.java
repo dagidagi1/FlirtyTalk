@@ -118,8 +118,8 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(@NonNull HomeFragment.MyViewHolder holder, int position) {
             //init row data
             holder.name_tv.setText(data.get(position).getUser_id());
-            //holder.age_tv.setText(data.get(position).getAge());
-            holder.gender_tv.setText("vezdehod");
+            holder.age_tv.setText(data.get(position).getAge().toString());
+            holder.gender_tv.setText(String.valueOf(data.get(position).getDeleted()));
             holder.city_tv.setText(data.get(position).getCity());
         }
 
