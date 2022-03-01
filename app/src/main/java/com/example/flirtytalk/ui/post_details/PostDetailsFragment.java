@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +16,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.ui.home.HomeFragmentDirections;
 import com.example.flirtytalk.ui.home.HomeViewModel;
+import com.squareup.picasso.Picasso;
 
 public class PostDetailsFragment extends Fragment {
 
     TextView name_tv,age_tv,city_tv,text_tv,phone_tv;
+    ImageView avatar_img;
     HomeViewModel viewModel;
     //photo
     public PostDetailsFragment() {
@@ -47,6 +50,7 @@ public class PostDetailsFragment extends Fragment {
         city_tv = v.findViewById(R.id.post_details_city_tv);
         text_tv = v.findViewById(R.id.post_details_text_tv);
         phone_tv = v.findViewById(R.id.post_details_phone_tv);
+        avatar_img = v.findViewById(R.id.post_details_avatar_iv);
         return v;
     }
 
@@ -60,5 +64,6 @@ public class PostDetailsFragment extends Fragment {
         city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
         text_tv.setText(viewModel.getData().getValue().get(pos).getText());
         phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
+        Picasso.get().load(viewModel.getData().getValue().get(pos).getPhoto()).resize(800,800).centerInside().into(avatar_img);
     }
 }

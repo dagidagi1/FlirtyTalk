@@ -7,23 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentHomeBinding;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 public class HomeFragment extends Fragment {
-
     private FragmentHomeBinding binding;
     HomeViewModel viewModel;
     NavController navController;
@@ -70,17 +75,19 @@ public class HomeFragment extends Fragment {
         adapter = new HomeFragment.MyAdapter();
         home_rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position) -> {
-            Log.d("TAG", "" + position);
+            Log.d("TAG-H", "" + position);
         });
         Button btn = view.findViewById(R.id.button12);
-        viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> adapter.notifyDataSetChanged());
+        viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
+                    adapter.notifyDataSetChanged();
+                });
         btn.setOnClickListener(x->adapter.notifyDataSetChanged());
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         //init all row values.
         TextView name_tv, age_tv, city_tv, gender_tv;
-        //photo
+        ImageView avatar_img;
 
         public MyViewHolder(@NonNull View itemView, HomeFragment.OnItemClickListner m_listener) {
             super(itemView);
@@ -88,6 +95,7 @@ public class HomeFragment extends Fragment {
             city_tv = itemView.findViewById(R.id.post_view_city);
             gender_tv = itemView.findViewById(R.id.post_view_gender_tv);
             age_tv = itemView.findViewById(R.id.post_view_age_tv);
+            avatar_img = itemView.findViewById(R.id.post_view_avatar);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,6 +139,7 @@ public class HomeFragment extends Fragment {
             holder.age_tv.setText(viewModel.getData().getValue().get(position).getCity());
             holder.gender_tv.setText(String.valueOf(viewModel.getData().getValue().get(position).getDeleted()));
             holder.city_tv.setText(viewModel.getData().getValue().get(position).getCity());
+            Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
         }
 
         @Override
