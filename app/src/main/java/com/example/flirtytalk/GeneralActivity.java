@@ -43,7 +43,7 @@ public class GeneralActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                navController.navigate(R.id.action_nav_home_to_addPostFragment2);
+                navController.navigate(R.id.action_nav_home_to_postDetailsFragment);
             }
         });
     }

@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Vasya Perviy"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_avatar_iv" />
 
@@ -32,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="99"
+
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +43,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Selo Damashniye"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_name_tv" />
@@ -56,7 +54,6 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
-        android:text="ya vasya\n umeyu\nb ne umeyu\n gavno"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +64,6 @@
         android:id="@+id/post_details_phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0545556667"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/post_details_callme_image_btn"
@@ -88,4 +84,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/post_details_phone_tv" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

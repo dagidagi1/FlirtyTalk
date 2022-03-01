@@ -48,22 +48,5 @@
         <action
             android:id="@+id/action_homeFragment_to_welcomeFragment"
             app:destination="@id/welcomeFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_postDetailsFragment"
-            app:destination="@id/postDetailsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_addPostFragment"
-            app:destination="@id/addPostFragment"
-            app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-        android:id="@+id/postDetailsFragment"
-        android:name="com.example.flirtytalk.PostDetailsFragment"
-        android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
-    <fragment
-        android:id="@+id/addPostFragment"
-        android:name="com.example.flirtytalk.AddPostFragment"
-        android:label="fragment_add_post"
-        tools:layout="@layout/fragment_add_post" />
 </navigation>

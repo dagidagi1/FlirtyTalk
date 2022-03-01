@@ -79,14 +79,11 @@ public class HomePageFragment extends Fragment {
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListner m_listener) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(m_listener != null){
-                        int pos = getAdapterPosition();
-                        if(pos != RecyclerView.NO_POSITION) {
-                            m_listener.onClick(pos);
-                        }
+            itemView.setOnClickListener(v -> {
+                if(m_listener != null){
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        m_listener.onClick(pos);
                     }
                 }
             });
