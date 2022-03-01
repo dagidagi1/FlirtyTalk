@@ -9,9 +9,9 @@
 
 
     <ImageView
-        android:id="@+id/nav_profile_photo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/new_post_profile_pic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_marginTop="16dp"
         android:background="#00FFFFFF"
         android:foregroundTint="#00FFFFFF"
@@ -57,7 +57,7 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nav_profile_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/new_post_profile_pic" />
 
     <EditText
         android:id="@+id/new_post_city"
@@ -73,12 +73,12 @@
         app:layout_constraintTop_toBottomOf="@+id/spn" />
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/new_post_take_pic_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@android:drawable/ic_menu_camera"
-        app:layout_constraintBottom_toBottomOf="@+id/nav_profile_photo"
-        app:layout_constraintEnd_toEndOf="@+id/nav_profile_photo" />
+        app:layout_constraintBottom_toBottomOf="@+id/new_post_profile_pic"
+        app:layout_constraintEnd_toEndOf="@+id/new_post_profile_pic" />
 
     <Button
         android:id="@+id/new_post_add_btn"

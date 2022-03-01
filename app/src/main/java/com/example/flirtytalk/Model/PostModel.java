@@ -1,5 +1,7 @@
 package com.example.flirtytalk.Model;
 
+import android.graphics.Bitmap;
+
 import java.util.List;
 
 public class PostModel {
@@ -61,8 +63,12 @@ public class PostModel {
             });
         });*//*
     }*/
-
-
+    public interface saveImageListener {
+        void onComplete(String url);
+    }
+    public void saveImage(Bitmap img_bitmap,String post_id, saveImageListener listener) {
+        postModelFireBase.saveImage(img_bitmap,post_id,listener);
+    }
 
 }
 

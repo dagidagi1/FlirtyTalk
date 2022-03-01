@@ -79,7 +79,7 @@ public class PostModelFireBase {
                 });
     }*/
 
-    public void saveImage(Bitmap image, String id, UsersModel.saveImageListener listener) {
+    public void saveImage(Bitmap image, String id, PostModel.saveImageListener listener) {
         if(image == null){listener.onComplete(null); return;}
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
