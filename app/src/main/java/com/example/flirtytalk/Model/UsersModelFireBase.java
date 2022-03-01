@@ -1,7 +1,6 @@
 package com.example.flirtytalk.Model;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,12 +19,14 @@ import java.util.Objects;
 
 
 public class UsersModelFireBase {
+    public static final String USERS = "Users";
+    public static final String AVATAR = "avatar/";
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth;
 
-    public void getAllUsers(UsersModel.getAllUsersListener listener) {
-        db.collection("Users")
+    public void getAllUsers(Long since, UsersModel.getAllUsersListener listener) {
+        db.collection(USERS)
                 .get()
                 .addOnCompleteListener(task -> {
                     LinkedList<User> usersList = new LinkedList<>();
@@ -42,14 +43,14 @@ public class UsersModelFireBase {
     }
 
     public void addUser(User user, UsersModel.addUserListener listener) {
-        db.collection("Users").document(user.getId()).set(user.toJson())
+        db.collection(USERS).document(user.getId()).set(user.toJson())
                 .addOnSuccessListener(unused -> listener.onComplete())
                 .addOnFailureListener(e -> Log.d("TAG", "Error writing document", e));
     }
 
 
     public void getUser(String userId, UsersModel.getUserListener listener) {
-        DocumentReference docRef = db.collection("Users").document(userId);
+        DocumentReference docRef = db.collection(USERS).document(userId);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
@@ -113,7 +114,7 @@ public class UsersModelFireBase {
         if(image == null){listener.onComplete(null); return;}
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-        StorageReference imageRef = storageRef.child("avatar/" + id + ".jpg");
+        StorageReference imageRef = storageRef.child(AVATAR + id + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();

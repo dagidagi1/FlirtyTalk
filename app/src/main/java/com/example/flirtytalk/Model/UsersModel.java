@@ -3,8 +3,12 @@ package com.example.flirtytalk.Model;
 
 import android.graphics.Bitmap;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.example.flirtytalk.My_application.MyApplication;
+
 import java.util.List;
-import java.util.Objects;
 
 public class UsersModel {
 
@@ -12,45 +16,53 @@ public class UsersModel {
 
     public static final UsersModel instance = new UsersModel();
 
-    private UsersModel(){}
+    MutableLiveData<List<User>> userListLD = new MutableLiveData<List<User>>();
+
+    private UsersModel(){
+        reloadUsersList();
+    }
 
     public interface getAllUsersListener{
         void onComplete(List<User> data);
     }
-    public void getAllUsers(getAllUsersListener listener){
-        usersModelFireBase.getAllUsers(listener);
-        /*MyApplication.executorService.execute(()->{
-            List<User> data = UsersLocalDB.db.userDao().getAllUsers();
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete(data);
+
+    private void reloadUsersList() {
+        usersModelFireBase.getAllUsers(User.getLocalLastUpdated(),(list)->{
+            MyApplication.executorService.execute(()->{
+                for(User u : list){
+                    UsersLocalDB.db.userDao().insert(u);
+                    if (u.getLastUpdated() > Post.getLocalLastUpdated()){
+                        User.setLocalLastUpdated(u.getLastUpdated());
+                    }
+                }
+                List<User> users_List = UsersLocalDB.db.userDao().getAllUsers();
+                userListLD.postValue(users_List);
             });
-        });*/
+        });
     }
+
+    public LiveData<List<User>> get_all() {return userListLD;}
 
     public interface addUserListener {
         void onComplete();
     }
     public void addUser(User user, addUserListener listener){
-        usersModelFireBase.addUser(user, listener);
-        /*MyApplication.executorService.execute(()->{
-            UsersLocalDB.db.userDao().insert(user);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete();
-            });
-        });*/
+        usersModelFireBase.addUser(user, ()->{
+            reloadUsersList();
+            listener.onComplete();
+        });
     }
 
     public interface getUserListener {
         void onComplete(User user);
     }
     public void getUser(String userId, getUserListener listener) {
-        usersModelFireBase.getUser(userId, listener);
-        /*MyApplication.executorService.execute(()->{
+        MyApplication.executorService.execute(()->{
             User user = UsersLocalDB.db.userDao().getUser(userId);
             MyApplication.mainHandler.post(()->{
                 listener.onComplete(user);
             });
-        });*/
+        });
     }
 
     public interface registerUserListener{
