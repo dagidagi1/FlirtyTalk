@@ -11,12 +11,8 @@
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_nav_home_to_postDetailsFragment"
-            app:destination="@id/postDetailsFragment"
-            app:launchSingleTop="false" >
-            <argument
-                android:name="post_id" />
-        </action>
+            android:id="@+id/action_nav_home_to_addPostFragment2"
+            app:destination="@id/addPostFragment2" />
     </fragment>
 
     <fragment
@@ -31,12 +27,8 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
-        android:id="@+id/postDetailsFragment"
-        android:name="com.example.flirtytalk.PostDetailsFragment"
-        android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" >
-        <argument
-            android:name="post_id"
-            app:argType="string" />
-    </fragment>
+        android:id="@+id/addPostFragment2"
+        android:name="com.example.flirtytalk.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" />
 </navigation>
