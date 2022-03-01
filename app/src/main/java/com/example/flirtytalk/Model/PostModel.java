@@ -19,7 +19,9 @@ public class PostModel {
     private PostModel(){
         reloadPostsList();
     }
+
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
+
     private void reloadPostsList() {
         //1. get local last update
         Long localLastUpdate = Post.getLocalLastUpdated();
@@ -29,15 +31,15 @@ public class PostModel {
             MyApplication.executorService.execute(()->{
                 //3. update local last update date
                 //4. add new records to the local db
-                Long lLastUpdate = new Long(0);
                 Log.d("TAG", "FB returned " + list.size());
-//                for(Post s : list){
-//                    PostLocalDB.db.postDao().insert(s);
-////                    if (s.getLastUpdated() > lLastUpdate){
-//                        lLastUpdate = s.getLastUpdated();
-//                    }
-//                }
-                Post.setLocalLastUpdated(lLastUpdate);
+                for(Post s : list){
+                    PostLocalDB.db.postDao().insert(s);
+                    if (s.getLastUpdated() > Post.getLocalLastUpdated()){
+                        //lLastUpdate = s.getLastUpdated();
+                        Post.setLocalLastUpdated(s.getLastUpdated());
+                    }
+                }
+
 
                 //5. return all records to the caller
                 List<Post> post_List = PostLocalDB.db.postDao().getAllPosts();

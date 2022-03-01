@@ -18,15 +18,16 @@ import java.util.Objects;
 
 @Entity
 public class Post {
+    public final static String LAST_UPDATED = "LAST_UPDATED";
+
+
     @PrimaryKey
     @NonNull
     private String id = "";
     private String user_id, phone, text, city, photo;
     private Integer age;
     boolean deleted;
-    public final static String LAST_UPDATED = "LAST_UPDATED";
     private Long lastUpdated = new Long(0);
-    //private final Boolean t = true;
 
     public Post(){
     }
@@ -41,7 +42,7 @@ public class Post {
         deleted = false;
     }
 
-    public Post(@NonNull String id, String user_id, Integer age, String phone,Long ts, String city, String text, String photo, boolean deleted){
+    public Post(@NonNull String id, String user_id, Integer age, String phone,Long ts, String city, String text, String photo, boolean deleted, Long lastUpdated){
         this.id = id;
         this.user_id = user_id;
         this.age = age;
@@ -51,6 +52,7 @@ public class Post {
         this.city = city;
         this.photo = photo;
         this.deleted = deleted;
+        this.lastUpdated = lastUpdated;
     }
 
     public void setId(String id) {this.id = id;}
@@ -75,7 +77,7 @@ public class Post {
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
-        json.put("id", getId() + FieldValue.serverTimestamp());
+        json.put("id", getId() + "" + FieldValue.serverTimestamp());
         json.put("user_id", getUser_id());
         json.put("age", getAge());
         json.put("text", getText());
@@ -98,9 +100,9 @@ public class Post {
         String city = ((String)json.get("city"));
         String photo = ((String)json.get("photo"));
         Timestamp ts = (Timestamp)json.get(LAST_UPDATED);
-        Post.setLocalLastUpdated(new Long(ts.getSeconds()));
+        Post.setLocalLastUpdated(ts.getSeconds());
         boolean deleted = (Boolean.getBoolean(Objects.requireNonNull(json.get("deleted")).toString()));
-        Post post = new Post(id, user_id, age, phone, null, city, text, photo, false);
+        Post post = new Post(id, user_id, age, phone, null, city, text, photo, deleted, ts.getSeconds());
         return post;
     }
     static Long getLocalLastUpdated(){
