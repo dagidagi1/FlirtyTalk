@@ -60,7 +60,9 @@ public class HomeFragment extends Fragment {
             if(swipeRefreshLayout.isRefreshing())
                 swipeRefreshLayout.setRefreshing(false);
             adapter.notifyDataSetChanged(); });
+        swipeRefreshLayout.setOnRefreshListener(() -> swipeRefreshLayout.setRefreshing(false));
     }
+
     static class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name_tv, age_tv, city_tv, gender_tv;
         ImageView avatar_img;

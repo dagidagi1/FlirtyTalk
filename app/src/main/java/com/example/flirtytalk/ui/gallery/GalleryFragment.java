@@ -47,14 +47,6 @@ public class GalleryFragment extends Fragment {
         binding = null;
     }
 
-//    private void updateData(){
-//        //swipe refresh
-//        PostModel.instance.getAllPosts((d)->{
-//            viewModel.setData(d);
-//            adapter.notifyDataSetChanged();
-//            Log.d("tag","Gavno updated"+ d.size());
-//        });
-//    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -63,13 +55,11 @@ public class GalleryFragment extends Fragment {
         });
         navController = Navigation.findNavController(view);
         gallery_rv = view.findViewById(R.id.gallery_rv);
-        //gallery_rv.setHasFixedSize(true);
+        gallery_rv.setHasFixedSize(true);
         gallery_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        //data = null;
         adapter = new MyAdapter();
         gallery_rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position, v) -> {
-            Log.d("TAG-G", "" + position);
             GalleryFragmentDirections.ActionNavGalleryToEditPostFragment action = GalleryFragmentDirections.actionNavGalleryToEditPostFragment(
                     viewModel.getData().getValue().get(position).getId());
                             Navigation.findNavController(v).navigate(action);
@@ -80,8 +70,6 @@ public class GalleryFragment extends Fragment {
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
-        //init all row values.
-
         ImageView avatar_img;
         TextView name_tv, age_tv, city_tv, gender_tv;
 
@@ -117,7 +105,6 @@ public class GalleryFragment extends Fragment {
         @NonNull
         @Override
         public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            //init row
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_view, null);
             MyViewHolder holder = new MyViewHolder(v, m_listener);
             return holder;
@@ -133,7 +120,6 @@ public class GalleryFragment extends Fragment {
                 Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
             });
         }
-
         @Override
         public int getItemCount() {
             if(viewModel.getData().getValue() == null) return 0;
