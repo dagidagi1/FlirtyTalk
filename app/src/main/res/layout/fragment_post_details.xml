@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/levavot"
     tools:context=".ui.post_details.PostDetailsFragment">
 
     <ImageView
@@ -11,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#00FFFFFF"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_avatar_iv" />
 
@@ -29,12 +32,13 @@
         android:id="@+id/post_details_age_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-
         android:textAlignment="center"
+        android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/post_details_name_tv"
         app:layout_constraintTop_toBottomOf="@+id/post_details_avatar_iv" />
 
     <TextView
@@ -42,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:textSize="20sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_name_tv" />
@@ -55,6 +59,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="50dp"
         android:textAlignment="center"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,7 +69,7 @@
         android:id="@+id/post_details_phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/post_details_callme_image_btn"
         app:layout_constraintEnd_toStartOf="@+id/post_details_callme_image_btn"

@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
@@ -52,13 +53,17 @@ public class PostDetailsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TextView tv = view.findViewById(R.id.post_details_name_tv);
         int pos = Integer.valueOf(PostDetailsFragmentArgs.fromBundle(getArguments()).getPos());
-        name_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
-        age_tv.setText(viewModel.getData().getValue().get(pos).getAge()+"");
-        city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
-        text_tv.setText(viewModel.getData().getValue().get(pos).getText());
-        phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
-        Picasso.get().load(viewModel.getData().getValue().get(pos).getPhoto()).resize(800,800).centerInside().into(avatar_img);
-        call_me_btn.setOnClickListener(x -> redirectToDialer(viewModel.getData().getValue().get(pos).getPhone()));
+        call_me_btn.setEnabled(false);
+        UsersModel.instance.getUser(viewModel.getData().getValue().get(pos).getUser_id(),(user)->{
+            name_tv.setText(user.getName());
+            age_tv.setText(viewModel.getData().getValue().get(pos).getAge()+"");
+            city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
+            text_tv.setText(viewModel.getData().getValue().get(pos).getText());
+            phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
+            Picasso.get().load(viewModel.getData().getValue().get(pos).getPhoto()).resize(800,800).centerInside().into(avatar_img);
+            call_me_btn.setOnClickListener(x -> redirectToDialer(viewModel.getData().getValue().get(pos).getPhone()));
+
+        });
     }
 
     private void redirectToDialer(String phone) {
