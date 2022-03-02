@@ -78,12 +78,25 @@ public class EditPostFragment extends Fragment {
         bio_tv.setText(viewModel.getPost().getText());
         city_tv.setText(viewModel.getPost().getCity());
         edit_btn.setOnClickListener(v->editPost(view));
+        delete_btn.setOnClickListener(v->deletePost());
         take_pic_btn.setOnClickListener(v->dispatchTakePictureIntent());
 //        phone_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
 //        bio_tv.setText(viewModel.getData().getValue().get(pos).getText());
 //        city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
 //        edit_btn.setOnClickListener(v->editPost(view,pos));
     }
+
+    private void deletePost() {
+        viewModel.getPost().setDeleted(true);
+        PostModel.instance.addPost(viewModel.getPost(),()->{
+            //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
+            navController.navigateUp();
+        });
+//        PostModel.instance.deletePost(viewModel.getPost().getId(),()->{
+//            navController.navigateUp();
+//        });
+    }
+
     private void editPost(View view){
         viewModel.getPost().setPhone(phone_tv.getText().toString());
         viewModel.getPost().setText(bio_tv.getText().toString());
@@ -101,7 +114,7 @@ public class EditPostFragment extends Fragment {
         phone_tv = view.findViewById(R.id.edit_post_phone);
         city_tv = view.findViewById(R.id.edit_post_city);
         bio_tv = view.findViewById(R.id.edit_post_bio);
-        delete_btn = view.findViewById(R.id.edit_post_approve_btn);
+        delete_btn = view.findViewById(R.id.edit_post_delete_btn);
         edit_btn = view.findViewById(R.id.edit_post_approve_btn);
         post_img = view.findViewById(R.id.edit_post_profile_pic);
         take_pic_btn = view.findViewById(R.id.edit_post_take_pic_btn);

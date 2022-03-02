@@ -43,7 +43,7 @@ public class PostModel {
     public LiveData<List<Post>> getAll(){
         return post_list_ld;
     }
-
+    public void relll(){reloadPostsList();}
     public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
@@ -83,7 +83,6 @@ public class PostModel {
     public interface deletePostListener {
         void onComplete();
     }
-
     public void deletePost(String postId, deletePostListener listener) {
         postModelFireBase.deletePost(postId, ()->{
             reloadPostsList();

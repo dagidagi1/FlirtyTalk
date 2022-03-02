@@ -9,7 +9,7 @@ import java.util.List;
 
 @Dao
 public interface PostDao {
-    @Query("SELECT * FROM Post ")
+    @Query("SELECT * FROM Post WHERE deleted = 0 ORDER BY id DESC")
     List<Post> getAllPosts();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

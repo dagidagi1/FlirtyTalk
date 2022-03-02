@@ -26,7 +26,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="1dp"
             android:contentDescription="@string/avatar"
-            android:scaleType="fitXY"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toTopOf="@+id/post_view_name_tv"
             app:layout_constraintEnd_toEndOf="@+id/post_view_avatar_bg"
             app:layout_constraintHorizontal_bias="0.5"

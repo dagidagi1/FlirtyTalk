@@ -65,20 +65,32 @@
         app:layout_constraintEnd_toEndOf="@+id/edit_post_profile_pic" />
 
     <Button
-        android:id="@+id/edit_post_approve_btn"
-        android:layout_width="match_parent"
+        android:id="@+id/edit_post_delete_btn"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
         android:background="@drawable/welcome_btns"
         android:fontFamily="@font/rancho"
-        android:text="Edit Post"
-        android:textAlignment="center"
+        android:text="Delete"
         android:textSize="28sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/edit_post_approve_btn"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/edit_post_approve_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/welcome_btns"
+        android:fontFamily="@font/rancho"
+        android:text="Edit"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_post_delete_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
