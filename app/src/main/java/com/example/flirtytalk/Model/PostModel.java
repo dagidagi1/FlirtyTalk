@@ -51,7 +51,7 @@ public class PostModel {
     }
     public LiveData<List<Post>> getAll(){return post_list_ld;}
     public LiveData<List<Post>> getMyPosts(){return my_posts_list_ld;}
-     public interface getAllPostsListener{
+      public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
 
@@ -96,15 +96,13 @@ public class PostModel {
 
     }
 
-
     public interface saveImageListener {
         void onComplete(String url);
     }
 
-    public void saveImage(Bitmap img_bitmap,String post_id, saveImageListener listener) {
+    public void saveImage(Bitmap img_bitmap, String post_id, saveImageListener listener) {
         postModelFireBase.saveImage(img_bitmap,post_id,listener);
     }
-
 }
 
 

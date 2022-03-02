@@ -19,6 +19,8 @@ public class PostModelFireBase {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+
+
     public void getAllPosts(Long since, PostModel.getAllPostsListener listener) {
         db.collection("Post")
                 .whereGreaterThanOrEqualTo(Post.LAST_UPDATED, new Timestamp(since, 0))
@@ -70,6 +72,7 @@ public class PostModelFireBase {
                             listener.onComplete(uri.toString());
                         }));
     }
+
 
     public void listenToChanges(PostModel.fireBaseDataListener listener){
         db.collection("Post").addSnapshotListener( (value, error) -> {
