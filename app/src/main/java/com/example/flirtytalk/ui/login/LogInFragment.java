@@ -23,14 +23,10 @@ import com.example.flirtytalk.R;
 
 public class LogInFragment extends Fragment {
 
-    NavController navController;
-    EditText emailEditText, passwordEditText;
-    Button loginBtn;
-    ProgressBar progressBar;
-
-    public LogInFragment() {
-        // Required empty public constructor
-    }
+    private NavController navController;
+    private EditText emailEditText, passwordEditText;
+    private Button loginBtn;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,13 +50,13 @@ public class LogInFragment extends Fragment {
         String password = passwordEditText.getText().toString();
         if(email.isEmpty())
         {
-            emailEditText.setError("Email is required");
+            emailEditText.setError(getString(R.string.email_is_required));
             emailEditText.requestFocus();
             return;
         }
         if(password.isEmpty())
         {
-            passwordEditText.setError("Password is required");
+            passwordEditText.setError(getString(R.string.password_is_required));
             passwordEditText.requestFocus();
             return;
         }
@@ -68,13 +64,13 @@ public class LogInFragment extends Fragment {
         loginBtn.setEnabled(false);
         UsersModel.instance.loginUser(email, password,(id)->{
             if(id!= null){
-                Toast.makeText(getActivity(), "Signed in successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.signed_in_successfully), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), GeneralActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }
             else{
-                Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.incorrect_email_or_password), Toast.LENGTH_LONG).show();
                 loginBtn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
             }

@@ -22,6 +22,7 @@ import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentGalleryBinding;
+import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
 
 public class GalleryFragment extends Fragment {
@@ -34,15 +35,11 @@ public class GalleryFragment extends Fragment {
     MyAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        //viewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
+        viewModel =
+                new ViewModelProvider(this).get(GalleryViewModel.class);
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         return root;
-    }
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
     }
     @Override
     public void onDestroyView() {
