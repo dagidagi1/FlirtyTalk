@@ -20,7 +20,17 @@ import java.util.Random;
 @Entity
 public class Post {
     public final static String LAST_UPDATED = "LAST_UPDATED";
-
+    public static final String USER_ID = "user_id";
+    public static final String ID = User.ID;
+    public static final String AGE = "age";
+    public static final String TEXT = "text";
+    public static final String CITY = "city";
+    public static final String PHOTO = "photo";
+    public static final String DELETED = "deleted";
+    public static final String TRUE = "true";
+    private static final String PHONE = "phone";
+    public static final String TAG = "TAG";
+    public static final String POST_LAST_UPDATE = "Post_LAST_UPDATE";
 
     @PrimaryKey
     @NonNull
@@ -44,13 +54,12 @@ public class Post {
         deleted = false;
     }
 
-    public Post(@NonNull String id, String user_id, Integer age, String phone,Long ts, String city, String text, String photo, boolean deleted, Long lastUpdated){
+    public Post(@NonNull String id, String user_id, Integer age, String phone, String city, String text, String photo, boolean deleted, Long lastUpdated){
         this.id = id;
         this.user_id = user_id;
         this.age = age;
         this.text = text;
         this.phone = phone;
-        this.lastUpdated = ts;
         this.city = city;
         this.photo = photo;
         this.deleted = deleted;
@@ -79,44 +88,43 @@ public class Post {
 
     public Map<String, Object> toJson() {
         Map<String, Object> json = new HashMap<>();
-        json.put("id", getId());
-        json.put("user_id", getUser_id());
-        json.put("age", getAge());
-        json.put("text", getText());
-        json.put("phone", getPhone());
-        json.put("city", getCity());
-        json.put("photo", getPhoto());
-        json.put("deleted", getDeleted());
+        json.put(ID, getId());
+        json.put(USER_ID, getUser_id());
+        json.put(AGE, getAge());
+        json.put(TEXT, getText());
+        json.put(PHONE, getPhone());
+        json.put(CITY, getCity());
+        json.put(PHOTO, getPhoto());
+        json.put(DELETED, getDeleted());
         json.put(LAST_UPDATED, FieldValue.serverTimestamp());
         return json;
     }
 
     public static Post fromJson(Map<String, Object> json) {
-        String id = ((String)json.get("id"));
+        String id = ((String)json.get(ID));
         if (id == null)
             return null;
-        String user_id = ((String)json.get("user_id"));
-        String text = ((String)json.get("text"));
-        String phone = ((String)json.get("phone"));
-        Integer age = Integer.valueOf(Objects.requireNonNull(json.get("age")).toString());
-        String city = ((String)json.get("city"));
-        String photo = ((String)json.get("photo"));
+        String user_id = ((String)json.get(USER_ID));
+        String text = ((String)json.get(TEXT));
+        String phone = ((String)json.get(PHONE));
+        Integer age = Integer.valueOf(Objects.requireNonNull(json.get(AGE)).toString());
+        String city = ((String)json.get(CITY));
+        String photo = ((String)json.get(PHOTO));
         Timestamp ts = (Timestamp)json.get(LAST_UPDATED);
-        Log.d("taa",json.get("deleted").toString()+", "+user_id+", "+city);
-        boolean deleted = json.get("deleted").toString().equals("true");//Boolean.parseBoolean((String)json.get("deleted"));//(Boolean.getBoolean(Objects.requireNonNull((String)json.get("deleted"))));
-        Post post = new Post(id, user_id, age, phone, null, city, text, photo, deleted, ts.getSeconds());
+        boolean deleted = json.get(DELETED).toString().equals(TRUE);
+        Post post = new Post(id, user_id, age, phone, city, text, photo, deleted, ts.getSeconds());
         return post;
     }
     static Long getLocalLastUpdated(){
-        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
-                .getLong("Post_LAST_UPDATE",0);
+        Long localLastUpdate = MyApplication.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE)
+                .getLong(POST_LAST_UPDATE,0);
         return localLastUpdate;
     }
 
     static void setLocalLastUpdated(Long date){
         SharedPreferences.Editor editor = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
-        editor.putLong("Post_LAST_UPDATE",date);
+                .getSharedPreferences(TAG, Context.MODE_PRIVATE).edit();
+        editor.putLong(POST_LAST_UPDATE,date);
         editor.commit();
     }
 }
