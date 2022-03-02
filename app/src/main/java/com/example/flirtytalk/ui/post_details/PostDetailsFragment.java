@@ -62,6 +62,7 @@ public class PostDetailsFragment extends Fragment {
             phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
             Picasso.get().load(viewModel.getData().getValue().get(pos).getPhoto()).resize(800,800).centerInside().into(avatar_img);
             call_me_btn.setOnClickListener(x -> redirectToDialer(viewModel.getData().getValue().get(pos).getPhone()));
+            call_me_btn.setEnabled(true);
 
         });
     }

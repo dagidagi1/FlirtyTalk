@@ -3,8 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/side_nav_bar.xml" value="0.2115" />
+        <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/thumb1.xml" value="0.2115" />
+        <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/drawable/track1.xml" value="0.2115" />
         <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/activity_authentication.xml" value="0.19010416666666666" />
+        <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/activity_general.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/app_bar_general.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_add_post.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_edit_post.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Dagi/AndroidStudioProjects/FlirtyTalk/app/src/main/res/layout/fragment_gallery.xml" value="0.20416666666666666" />

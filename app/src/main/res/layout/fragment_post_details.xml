@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/levavot"
+    android:background="@drawable/bg1"
     tools:context=".ui.post_details.PostDetailsFragment">
 
     <ImageView
         android:id="@+id/post_details_avatar_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="84dp"
         android:backgroundTint="#00FFFFFF"
         android:src="@drawable/avatar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,46 +22,66 @@
         android:id="@+id/post_details_name_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:textSize="32sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_details_avatar_iv" />
-
-    <TextView
-        android:id="@+id/post_details_age_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Vasya pupkin"
         android:textAlignment="center"
         android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/post_details_name_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_avatar_iv" />
 
     <TextView
         android:id="@+id/post_details_city_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:text="Ashdod"
+        android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_name_tv" />
 
     <TextView
         android:id="@+id/post_details_text_tv"
-        android:layout_width="wrap_content"
+        android:layout_width="409dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="24dp"
+        android:text="like to drink vodka,\n and a lot of othe things!"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_age_text_tv" />
+
+    <TextView
+        android:id="@+id/post_details_age_text_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text=" Years old"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/post_details_age_tv"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_city_tv" />
+
+    <TextView
+        android:id="@+id/post_details_age_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="80"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/post_details_age_text_tv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_details_city_tv" />
 
@@ -69,26 +89,41 @@
         android:id="@+id/post_details_phone_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:layout_marginTop="40dp"
+        android:text="08123123123"
+        android:textAlignment="center"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/post_details_callme_image_btn"
-        app:layout_constraintEnd_toStartOf="@+id/post_details_callme_image_btn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/post_details_text_tv" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="My phone number: "
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/post_details_phone_tv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/post_details_callme_image_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/post_details_text_tv" />
 
     <ImageButton
         android:id="@+id/post_details_callme_image_btn"
         android:layout_width="90dp"
         android:layout_height="90dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#00FFFFFF"
         android:scaleType="fitCenter"
         android:src="@drawable/call_me"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/post_details_phone_tv" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

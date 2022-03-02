@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg1"
     android:foregroundTint="#00FFFFFF"
     tools:context=".ui.add_post.AddPostFragment">
 
@@ -12,7 +13,7 @@
         android:id="@+id/nav_profile_pic"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="85dp"
         android:background="#00FFFFFF"
         android:foregroundTint="#00FFFFFF"
         android:src="@drawable/avatar"
@@ -27,8 +28,8 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Phone"
-        android:numeric="integer"
         android:inputType="phone"
+        android:numeric="integer"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,8 +39,8 @@
         android:id="@+id/new_post_bio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginTop="8dp"
+        android:ems="10"
         android:hint="Bio"
         android:inputType="textMultiLine"
         android:textAlignment="center"
@@ -63,8 +64,8 @@
         android:id="@+id/new_post_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:layout_marginTop="8dp"
+        android:ems="10"
         android:hint="City"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -84,9 +85,9 @@
         android:id="@+id/new_post_add_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="85dp"
         android:background="@drawable/welcome_btns"
         android:fontFamily="@font/rancho"
         android:text="Add Post"
@@ -95,7 +96,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
     <ProgressBar
         android:id="@+id/new_post_progress_bar"
         style="?android:attr/progressBarStyle"
@@ -109,7 +112,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
