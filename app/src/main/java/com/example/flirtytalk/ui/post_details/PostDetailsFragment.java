@@ -1,10 +1,13 @@
 package com.example.flirtytalk.ui.post_details;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +26,7 @@ public class PostDetailsFragment extends Fragment {
     TextView name_tv,age_tv,city_tv,text_tv,phone_tv;
     ImageView avatar_img;
     HomeViewModel viewModel;
-    //photo
+    ImageButton call_me_btn;
     public PostDetailsFragment() {
         // Required empty public constructor
     }
@@ -51,6 +54,7 @@ public class PostDetailsFragment extends Fragment {
         text_tv = v.findViewById(R.id.post_details_text_tv);
         phone_tv = v.findViewById(R.id.post_details_phone_tv);
         avatar_img = v.findViewById(R.id.post_details_avatar_iv);
+        call_me_btn = v.findViewById(R.id.post_details_callme_image_btn);
         return v;
     }
 
@@ -65,5 +69,12 @@ public class PostDetailsFragment extends Fragment {
         text_tv.setText(viewModel.getData().getValue().get(pos).getText());
         phone_tv.setText(viewModel.getData().getValue().get(pos).getPhone());
         Picasso.get().load(viewModel.getData().getValue().get(pos).getPhoto()).resize(800,800).centerInside().into(avatar_img);
+        call_me_btn.setOnClickListener(x -> redirectToDialer(viewModel.getData().getValue().get(pos).getPhone()));
+    }
+
+    private void redirectToDialer(String phone) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        intent.setData(Uri.parse("tel:"+phone));
+        startActivity(intent);
     }
 }
