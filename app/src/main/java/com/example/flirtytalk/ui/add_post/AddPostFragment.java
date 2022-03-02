@@ -55,7 +55,7 @@ public class AddPostFragment extends Fragment {
         phone_tv = v.findViewById(R.id.new_post_phone);
         bio_tv = v.findViewById(R.id.new_post_bio);
         take_pic_btn = v.findViewById(R.id.new_post_take_pic_btn);
-        post_pic = v.findViewById(R.id.new_post_profile_pic);
+        post_pic = v.findViewById(R.id.nav_profile_pic);
         postPicBitmap = null;
         List ages = new ArrayList<Integer>();
         for (int i = 18; i < 100; i++) {
