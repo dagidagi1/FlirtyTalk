@@ -26,24 +26,16 @@ import com.example.flirtytalk.R;
 
 
 public class RegisterFragment extends Fragment {
-
-    NavController navController;
-    EditText nameEditText, emailEditText, passwordEditText;
-    @SuppressLint("UseSwitchCompatOrMaterialCode")
-    Switch genderSwitch;
-    ProgressBar progressBar;
-    Button reg_btn;
-
-    public RegisterFragment() {
-        // Required empty public constructor
-    }
-
+    private NavController navController;
+    private EditText nameEditText, emailEditText, passwordEditText;
+    private Switch genderSwitch;
+    private ProgressBar progressBar;
+    private Button reg_btn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_register, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -56,39 +48,37 @@ public class RegisterFragment extends Fragment {
         progressBar = view.findViewById(R.id.reg_progress_bar);
         reg_btn.setOnClickListener(p -> register());
     }
-
-
     private void register() {
         String name = nameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        String gender = genderSwitch.isActivated() ? "f" : "m";
+        String gender = genderSwitch.isActivated() ? getString(R.string.f) : getString(R.string.f);
         if(name.isEmpty())
         {
-            nameEditText.setError("First name is required");
+            nameEditText.setError(getString(R.string.name_is_required));
             nameEditText.requestFocus();
             return;
         }
         if(email.isEmpty())
         {
-            emailEditText.setError("Email is required");
+            emailEditText.setError(getString(R.string.name_is_required));
             emailEditText.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
-            emailEditText.setError("Please provide valid email");
+            emailEditText.setError(getString(R.string.please_provide_valid_email));
             emailEditText.requestFocus();
             return;
         }
         if(password.isEmpty())
         {
-            passwordEditText.setError("Password is required");
+            passwordEditText.setError(getString(R.string.password_is_required));
             passwordEditText.requestFocus();
             return;
         }
         if(password.length()<6) {
-            passwordEditText.setError("Password must be at least 6 characters");
+            passwordEditText.setError(getString(R.string.password_must_be_at_leas_6_characters));
             passwordEditText.requestFocus();
             return;
         }
@@ -98,13 +88,13 @@ public class RegisterFragment extends Fragment {
             if(id != null){
                 User user = new User(id, name, gender);
                 UsersModel.instance.addUser(user, ()-> {
-                    Toast.makeText(getActivity(), "Registered successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.registered_successfully), Toast.LENGTH_LONG).show();
                     startActivity(new Intent(getActivity(), GeneralActivity.class));
                     getActivity().finish();
                 });
             }
             else{
-                Toast.makeText(getActivity(), "Register not succeeded", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.register_not_succeeded), Toast.LENGTH_LONG).show();
                 reg_btn.setEnabled(true);
                 progressBar.setVisibility(View.GONE);
             }

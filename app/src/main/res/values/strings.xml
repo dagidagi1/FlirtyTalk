@@ -30,4 +30,20 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_general">GeneralActivity</string>
     <string name="logout">Logout</string>
+
+    <string name="f">f</string>
+    <string name="m">m</string>
+    <string name="name_is_required">Name is required</string>
+    <string name="email_is_required">Email is required</string>
+    <string name="please_provide_valid_email">Please provide valid email</string>
+    <string name="password_is_required">Password is required</string>
+    <string name="password_must_be_at_leas_6_characters">Password must be at least 6 characters</string>
+    <string name="registered_successfully">Registered successfully</string>
+    <string name="register_not_succeeded">Register not succeeded</string>
+    <string name="signed_in_successfully">Signed in successfully</string>
+    <string name="incorrect_email_or_password">Incorrect email or password</string>
+
+
+
+
 </resources>

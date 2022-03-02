@@ -23,26 +23,10 @@ import com.squareup.picasso.Picasso;
 
 public class PostDetailsFragment extends Fragment {
 
-    TextView name_tv,age_tv,city_tv,text_tv,phone_tv;
-    ImageView avatar_img;
-    HomeViewModel viewModel;
-    ImageButton call_me_btn;
-    public PostDetailsFragment() {
-        // Required empty public constructor
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-    }
+    private TextView name_tv,age_tv,city_tv,text_tv,phone_tv;
+    private ImageView avatar_img;
+    private HomeViewModel viewModel;
+    private ImageButton call_me_btn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +40,12 @@ public class PostDetailsFragment extends Fragment {
         avatar_img = v.findViewById(R.id.post_details_avatar_iv);
         call_me_btn = v.findViewById(R.id.post_details_callme_image_btn);
         return v;
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     }
 
     @Override

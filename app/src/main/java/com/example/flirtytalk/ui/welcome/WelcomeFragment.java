@@ -16,14 +16,9 @@ import androidx.navigation.Navigation;
 import com.example.flirtytalk.R;
 
 public class WelcomeFragment extends Fragment {
-
-    NavController navController;
-    Button login_btn, register_btn;
-    ProgressBar progressBar;
-
-    public WelcomeFragment() {
-        // Required empty public constructor
-    }
+    private NavController navController;
+    private Button login_btn, register_btn;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,22 +36,4 @@ public class WelcomeFragment extends Fragment {
         login_btn.setOnClickListener(p -> navController.navigate(R.id.action_welcomeFragment_to_logInFragment));
         register_btn.setOnClickListener(p -> navController.navigate(R.id.action_welcomeFragment_to_registerFragment));
     }
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        login_btn.setEnabled(false);
-        register_btn.setEnabled(false);
-        progressBar.setVisibility(View.VISIBLE);
-        UsersModel.instance.getCurrentUser((id -> {
-            if (id != null) {
-                startActivity(new Intent(getActivity(), AppActivity.class));
-                getActivity().finish();
-            } else {
-                login_btn.setEnabled(true);
-                register_btn.setEnabled(true);
-                progressBar.setVisibility(View.GONE);
-            }
-        }));
-    }*/
 }

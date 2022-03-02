@@ -22,9 +22,4 @@ public class LogoutFragment extends Fragment {
         getActivity().finish();
         return inflater.inflate(R.layout.fragment_logout, container, false);
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-    }
 }
