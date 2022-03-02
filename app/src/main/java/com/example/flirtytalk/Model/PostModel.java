@@ -50,7 +50,7 @@ public class PostModel {
     }
     public LiveData<List<Post>> getAll(){return post_list_ld;}
     public LiveData<List<Post>> getMyPosts(){return my_posts_list_ld;}
-    public interface getAllPostsListener{
+     public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
 

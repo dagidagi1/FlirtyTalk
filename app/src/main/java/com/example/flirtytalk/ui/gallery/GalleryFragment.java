@@ -6,15 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -25,12 +22,7 @@ import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentGalleryBinding;
-import com.example.flirtytalk.ui.home.HomeFragment;
-import com.example.flirtytalk.ui.home.HomeFragmentDirections;
-import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class GalleryFragment extends Fragment {
 
@@ -135,15 +127,14 @@ public class GalleryFragment extends Fragment {
         }
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-//            init row data
-//            set photo.
-//            Log.d("ffag",holder.phone_tv.toString());
-//
-            holder.name_tv.setText(viewModel.getData().getValue().get(position).getUser_id());
-            holder.age_tv.setText(viewModel.getData().getValue().get(position).getCity());
-            holder.gender_tv.setText(String.valueOf(viewModel.getData().getValue().get(position).getDeleted()));
-            holder.city_tv.setText(viewModel.getData().getValue().get(position).getCity());
-            Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
+            Post post = viewModel.getData().getValue().get(position);
+            UsersModel.instance.getUser(post.getUser_id(), (user)->{
+                holder.name_tv.setText(user.getName());
+                holder.age_tv.setText(String.valueOf(post.getAge()));
+                holder.gender_tv.setText(user.getGender());
+                holder.city_tv.setText(post.getCity());
+                Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
+            });
         }
 
         @Override

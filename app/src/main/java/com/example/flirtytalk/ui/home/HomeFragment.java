@@ -17,6 +17,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
@@ -31,6 +32,7 @@ public class HomeFragment extends Fragment {
     RecyclerView home_rv;
     String id;
     HomeFragment.MyAdapter adapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -45,6 +47,7 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        swipeRefreshLayout = root.findViewById(R.id.home_swipe_refresh);
 
         return root;
     }
@@ -65,9 +68,14 @@ public class HomeFragment extends Fragment {
         adapter.setOnItemClickListener((position) -> {
             Log.d("TAG-H", "" + position);
         });
+        if(viewModel.getData().getValue() == null)
+        {
+            swipeRefreshLayout.setRefreshing(true);
+        }
         viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
-            adapter.notifyDataSetChanged();
-                });
+            if(swipeRefreshLayout.isRefreshing()) {
+                swipeRefreshLayout.setRefreshing(false); }
+            adapter.notifyDataSetChanged(); });
     }
 
 
