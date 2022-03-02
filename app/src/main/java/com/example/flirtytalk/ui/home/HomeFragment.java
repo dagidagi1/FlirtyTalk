@@ -6,14 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,13 +19,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.flirtytalk.Model.Post;
-import com.example.flirtytalk.Model.PostModel;
+import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentHomeBinding;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
@@ -81,6 +77,9 @@ public class HomeFragment extends Fragment {
         viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
                     adapter.notifyDataSetChanged();
                 });
+        viewModel.getUsers_list().observe(getViewLifecycleOwner(), (users -> {
+            adapter.notifyDataSetChanged();
+        }));
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -134,10 +133,12 @@ public class HomeFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull HomeFragment.MyViewHolder holder, int position) {
             //init row data
-            holder.name_tv.setText(viewModel.getData().getValue().get(position).getUser_id());
-            holder.age_tv.setText(viewModel.getData().getValue().get(position).getCity());
-            holder.gender_tv.setText(String.valueOf(viewModel.getData().getValue().get(position).getDeleted()));
-            holder.city_tv.setText(viewModel.getData().getValue().get(position).getCity());
+            Post post = viewModel.getData().getValue().get(position);
+            User user =viewModel.getUser(post.getUser_id());
+            holder.name_tv.setText(user.getName());
+            holder.age_tv.setText(String.valueOf(post.getAge()));
+            holder.gender_tv.setText(user.getGender());
+            holder.city_tv.setText(post.getCity());
             Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
         }
 

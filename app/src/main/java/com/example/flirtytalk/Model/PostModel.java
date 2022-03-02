@@ -23,7 +23,7 @@ public class PostModel {
     }
 
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
-    MutableLiveData<List<Post>> my_posts_list_ld = new MutableLiveData<List<Post>>();
+
     private void reloadPostsList() {
         postModelFireBase.getAllPosts(Post.getLocalLastUpdated(),(list)->{
             MyApplication.executorService.execute(()->{
@@ -49,9 +49,15 @@ public class PostModel {
             });
         });
     }
-    public LiveData<List<Post>> getAll(){return post_list_ld;}
+
+    public LiveData<List<Post>> getAll(){
+        return post_list_ld;
+    }
+
+    MutableLiveData<List<Post>> my_posts_list_ld = new MutableLiveData<List<Post>>();
+
     public LiveData<List<Post>> getMyPosts(){return my_posts_list_ld;}
-    public void relll(){reloadPostsList();}
+
     public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
@@ -69,11 +75,9 @@ public class PostModel {
     }
 
     private void fireBaseDataChanged(fireBaseDataListener listener){
-        postModelFireBase.listenToChanges(()->{
-            reloadPostsList();
-            listener.onComplete();
-        });
+        postModelFireBase.listenToChanges(listener::onComplete);
     }
+
     public interface deletePostListener {
         void onComplete();
     }
