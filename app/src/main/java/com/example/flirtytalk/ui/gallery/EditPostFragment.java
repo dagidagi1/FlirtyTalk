@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.flirtytalk.Model.Post;
@@ -42,6 +43,7 @@ public class EditPostFragment extends Fragment {
     ImageButton take_pic_btn;
     EditPostViewModel viewModel;
     NavController navController;
+    ProgressBar progressBar;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     final static int RESAULT_SUCCESS = 0;
 
@@ -71,43 +73,60 @@ public class EditPostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        String post_id = PostDetailsFragmentArgs.fromBundle(getArguments()).getPos();
-        viewModel.setPost(post_id);
-        Picasso.get().load(viewModel.getPost().getPhoto()).resize(800,800).centerInside().into(post_img);
-        phone_tv.setText(viewModel.getPost().getPhone());
-        bio_tv.setText(viewModel.getPost().getText());
-        city_tv.setText(viewModel.getPost().getCity());
-        edit_btn.setOnClickListener(v->editPost(view));
-        delete_btn.setOnClickListener(v->deletePost());
-        take_pic_btn.setOnClickListener(v->dispatchTakePictureIntent());
-//        phone_tv.setText(viewModel.getData().getValue().get(pos).getUser_id());
-//        bio_tv.setText(viewModel.getData().getValue().get(pos).getText());
-//        city_tv.setText(viewModel.getData().getValue().get(pos).getCity());
-//        edit_btn.setOnClickListener(v->editPost(view,pos));
+        viewModel.setPostId(PostDetailsFragmentArgs.fromBundle(getArguments()).getPos());
+        edit_btn.setEnabled(false);
+        delete_btn.setEnabled(false);
+        take_pic_btn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        PostModel.instance.getPostById(viewModel.getPostId(), (post) -> {
+            Picasso.get().load(post.getPhoto()).resize(800, 800).centerInside().into(post_img);
+            phone_tv.setText(post.getPhone());
+            bio_tv.setText(post.getText());
+            city_tv.setText(post.getCity());
+            edit_btn.setEnabled(true);
+            delete_btn.setEnabled(true);
+            take_pic_btn.setEnabled(true);
+            progressBar.setVisibility(View.GONE);
+        });
+        edit_btn.setOnClickListener(v -> editPost(view));
+        delete_btn.setOnClickListener(v -> deletePost());
+        take_pic_btn.setOnClickListener(x->dispatchTakePictureIntent());
     }
 
     private void deletePost() {
-//        viewModel.getPost().setDeleted(true);
-//        PostModel.instance.addPost(viewModel.getPost(),()->{
-//            //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
-//            navController.navigateUp();
-//        });
-        PostModel.instance.deletePost(viewModel.getPost().getId(),()->{
+        edit_btn.setEnabled(false);
+        delete_btn.setEnabled(false);
+        take_pic_btn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        PostModel.instance.deletePost(viewModel.getPostId(),()->{
             navController.navigateUp();
         });
     }
 
     private void editPost(View view){
-        viewModel.getPost().setPhone(phone_tv.getText().toString());
-        viewModel.getPost().setText(bio_tv.getText().toString());
-        viewModel.getPost().setCity(city_tv.getText().toString());
-        PostModel.instance.saveImage(postPicBitmap,viewModel.getPost().getId(),(url)-> {
-            viewModel.getPost().setPhoto(url);
-            PostModel.instance.addPost(viewModel.getPost(), () -> {
-                //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
-                navController.navigateUp();
-            });
+        edit_btn.setEnabled(false);
+        delete_btn.setEnabled(false);
+        take_pic_btn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
+        PostModel.instance.getPostById(viewModel.getPostId(), (post)->{
+            post.setPhone(phone_tv.getText().toString());
+            post.setText(bio_tv.getText().toString());
+            post.setCity(city_tv.getText().toString());
+            if(postPicBitmap == null){
+                PostModel.instance.addPost(post, () -> {
+                    navController.navigateUp();
+                });
+            }
+            else {
+                PostModel.instance.saveImage(postPicBitmap, post.getId(), (url) -> {
+                    post.setPhoto(url);
+                    PostModel.instance.addPost(post, () -> {
+                        navController.navigateUp();
+                    });
+                });
+            }
         });
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -120,7 +139,7 @@ public class EditPostFragment extends Fragment {
         edit_btn = view.findViewById(R.id.edit_post_approve_btn);
         post_img = view.findViewById(R.id.edit_post_profile_pic);
         take_pic_btn = view.findViewById(R.id.edit_post_take_pic_btn);
-
+        progressBar = view.findViewById(R.id.edit_post_progress_bar);
         return view;
     }
 }

@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,7 +35,7 @@ import java.util.List;
 
 public class AddPostFragment extends Fragment {
 
-    private TextView age_tv, city_tv, phone_tv, bio_tv;
+    private EditText city_tv, phone_tv, bio_tv;
     private Spinner spn;
     private int age;
     private ImageView post_pic;
@@ -41,6 +43,7 @@ public class AddPostFragment extends Fragment {
     private ImageButton take_pic_btn;
     private Bitmap postPicBitmap;
     NavController navController;
+    ProgressBar progressBar;
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -50,10 +53,10 @@ public class AddPostFragment extends Fragment {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.fragment_add_post, container, false);
         add_btn = v.findViewById(R.id.new_post_add_btn);
-        //age_tv = v.findViewById(R.id.new_post_age);
         city_tv = v.findViewById(R.id.new_post_city);
         phone_tv = v.findViewById(R.id.new_post_phone);
         bio_tv = v.findViewById(R.id.new_post_bio);
+        progressBar = v.findViewById(R.id.new_post_progress_bar);
         take_pic_btn = v.findViewById(R.id.new_post_take_pic_btn);
         post_pic = v.findViewById(R.id.nav_profile_pic);
         postPicBitmap = null;
@@ -68,7 +71,10 @@ public class AddPostFragment extends Fragment {
         return v;
     }
 
-    public void add_post(View view){
+    public void add_post(){
+        take_pic_btn.setEnabled(false);
+        add_btn.setEnabled(false);
+        progressBar.setVisibility(View.VISIBLE);
         String  city, phone, bio;
         age = 18 + spn.getSelectedItemPosition();
         city = city_tv.getText().toString();
@@ -78,17 +84,13 @@ public class AddPostFragment extends Fragment {
             Post p =new Post(id, age, phone, city, bio, null);
             PostModel.instance.saveImage(postPicBitmap,p.getId(),(url)->{
                 p.setPhoto(url);
-
-                Toast.makeText(getActivity(), ""+ url, Toast.LENGTH_LONG).show();
                 PostModel.instance.addPost(p,()->{
                     navController.navigateUp();
-                    Toast.makeText(getActivity(), ""+ p.getId(), Toast.LENGTH_LONG).show();
                 });
             });
         });
     }
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    final static int RESAULT_SUCCESS = 0;
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -110,7 +112,7 @@ public class AddPostFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        add_btn.setOnClickListener(unused -> add_post(view));
+        add_btn.setOnClickListener(unused -> add_post());
         take_pic_btn.setOnClickListener(unused-> dispatchTakePictureIntent());
     }
 }

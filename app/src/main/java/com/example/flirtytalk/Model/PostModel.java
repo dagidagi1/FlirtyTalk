@@ -62,8 +62,13 @@ public class PostModel {
     public interface getPostByIdListener{
         void onComplete(Post p);
     }
-    public Post getPostById(String post_id, getPostByIdListener listener){
-        return PostLocalDB.db.postDao().getPost(post_id);
+    public void getPostById(String post_id, getPostByIdListener listener){
+        MyApplication.executorService.execute(()->{
+            Post post = PostLocalDB.db.postDao().getPost(post_id);
+            MyApplication.mainHandler.post(()->{
+                listener.onComplete(post);
+            });
+        });
     }
 
     public void addPost(Post post, addPostListener listener){

@@ -6,20 +6,10 @@ import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.PostModel;
 
 public class EditPostViewModel extends ViewModel {
-    private Post p;
-
-    public Post getPost() {
-        return p;
+    private String post_id;
+    public EditPostViewModel(){}
+    public String getPostId() {
+        return post_id;
     }
-    public void setPost(String post_id){
-        PostModel.instance.getPostById(post_id,(post) -> {
-            p = post;
-        });
-//        p = PostModel.instance.getAll().getValue().get(0);
-//        for(int i = 0; i<PostModel.instance.getAll().getValue().size();i++){
-//            if(PostModel.instance.getAll().getValue().get(i).getId().equals(post_id)){
-//                p = PostModel.instance.getAll().getValue().get(i);
-//            }
-//        }
-    }
+    public void setPostId(String id){post_id=id;}
 }
