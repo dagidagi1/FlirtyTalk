@@ -34,7 +34,6 @@ public class PostModelFireBase {
                     }
                     listener.onComplete(postsList);
                 }).addOnFailureListener(e -> listener.onComplete(null));
-
     }
 
     public void addPost(Post post, PostModel.addPostListener listener) {
@@ -69,6 +68,14 @@ public class PostModelFireBase {
                         .addOnSuccessListener(uri -> {
                             listener.onComplete(uri.toString());
                         }));
+    }
+
+    public void listenToChanges(PostModel.fireBaseDataListener listener){
+        db.collection("Post").addSnapshotListener( (value, error) -> {
+           if (value!=null){
+               listener.onComplete();
+           }
+        });
     }
 }
 

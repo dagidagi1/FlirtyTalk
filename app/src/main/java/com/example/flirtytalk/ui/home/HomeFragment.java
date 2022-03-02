@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
@@ -30,15 +30,14 @@ public class HomeFragment extends Fragment {
     RecyclerView home_rv;
     String id;
     HomeFragment.MyAdapter adapter;
+    SwipeRefreshLayout swipeRefresh;
 
-//    private void updateData(){
-//        //swipe refresh
-//        PostModel.instance.getAllPosts((d)->{
-//            viewModel.setData(d);
-//            adapter.notifyDataSetChanged();
-//            Log.d("tag","Gavno updated"+ d.size());
-//        });
-//    }
+    private void refreshData(){
+        swipeRefresh.setRefreshing(true);
+        viewModel.getData();
+        swipeRefresh.setRefreshing(false);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -53,6 +52,13 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        swipeRefresh = root.findViewById(R.id.home_swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
 
         return root;
     }
@@ -72,9 +78,7 @@ public class HomeFragment extends Fragment {
         adapter.setOnItemClickListener((position) -> {
             Log.d("TAG", "" + position);
         });
-        Button btn = view.findViewById(R.id.button12);
         viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> adapter.notifyDataSetChanged());
-        btn.setOnClickListener(x->adapter.notifyDataSetChanged());
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder{

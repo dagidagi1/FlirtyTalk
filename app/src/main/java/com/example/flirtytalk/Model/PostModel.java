@@ -17,6 +17,9 @@ public class PostModel {
 
     private PostModel(){
         reloadPostsList();
+        fireBaseDataChanged(()->{
+            reloadPostsList();
+        });
     }
 
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
@@ -24,12 +27,14 @@ public class PostModel {
     private void reloadPostsList() {
         postModelFireBase.getAllPosts(Post.getLocalLastUpdated(),(list)->{
             MyApplication.executorService.execute(()->{
+                Long lastUpdate = new Long(0);
                 for(Post s : list){
                     PostLocalDB.db.postDao().insert(s);
-                    if (s.getLastUpdated() > Post.getLocalLastUpdated()){
-                        Post.setLocalLastUpdated(s.getLastUpdated());
+                    if (lastUpdate < s.getLastUpdated()){
+                        lastUpdate = s.getLastUpdated();
                     }
                 }
+                Post.setLocalLastUpdated(lastUpdate);
                 List<Post> post_List = PostLocalDB.db.postDao().getAllPosts();
                 post_list_ld.postValue(post_List);
             });
@@ -48,7 +53,15 @@ public class PostModel {
     }
 
     public void addPost(Post post, addPostListener listener){
-        postModelFireBase.addPost(post, ()->{
+        postModelFireBase.addPost(post, listener::onComplete);
+    }
+
+    public interface fireBaseDataListener{
+        void onComplete();
+    }
+
+    private void fireBaseDataChanged(fireBaseDataListener listener){
+        postModelFireBase.listenToChanges(()->{
             reloadPostsList();
             listener.onComplete();
         });
