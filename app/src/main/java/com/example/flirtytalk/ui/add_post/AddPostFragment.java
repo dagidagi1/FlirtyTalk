@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddPostFragment extends Fragment {
-
+    public static final int REQUEST_IMAGE_CAPTURE = 1;
     public static final String DATA = "data";
     private EditText city_tv, phone_tv, bio_tv;
     private Spinner spn;
@@ -41,11 +41,9 @@ public class AddPostFragment extends Fragment {
     private Button add_btn;
     private ImageButton take_pic_btn;
     private Bitmap postPicBitmap;
-    NavController navController;
-    ProgressBar progressBar;
-    public AddPostFragment() {
-        // Required empty public constructor
-    }
+    private NavController navController;
+    private ProgressBar progressBar;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,7 +67,13 @@ public class AddPostFragment extends Fragment {
         spn.setAdapter(saAdapter);
         return v;
     }
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        navController = Navigation.findNavController(view);
+        add_btn.setOnClickListener(unused -> add_post());
+        take_pic_btn.setOnClickListener(unused-> dispatchTakePictureIntent());
+    }
     public void add_post(){
         take_pic_btn.setEnabled(false);
         add_btn.setEnabled(false);
@@ -89,7 +93,7 @@ public class AddPostFragment extends Fragment {
             });
         });
     }
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -107,11 +111,5 @@ public class AddPostFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        navController = Navigation.findNavController(view);
-        add_btn.setOnClickListener(unused -> add_post());
-        take_pic_btn.setOnClickListener(unused-> dispatchTakePictureIntent());
-    }
+
 }

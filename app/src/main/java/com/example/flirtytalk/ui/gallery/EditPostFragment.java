@@ -25,6 +25,7 @@ import androidx.navigation.Navigation;
 
 import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.R;
+import com.example.flirtytalk.ui.add_post.AddPostFragment;
 import com.example.flirtytalk.ui.post_details.PostDetailsFragmentArgs;
 import com.squareup.picasso.Picasso;
 
@@ -37,19 +38,17 @@ public class EditPostFragment extends Fragment {
     EditPostViewModel viewModel;
     NavController navController;
     ProgressBar progressBar;
-    static final int REQUEST_IMAGE_CAPTURE = 1;
-    final static int RESAULT_SUCCESS = 0;
 
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+            startActivityForResult(takePictureIntent, AddPostFragment.REQUEST_IMAGE_CAPTURE);
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+        if (requestCode == AddPostFragment.REQUEST_IMAGE_CAPTURE &&
                 resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             postPicBitmap = (Bitmap) extras.get("data");
