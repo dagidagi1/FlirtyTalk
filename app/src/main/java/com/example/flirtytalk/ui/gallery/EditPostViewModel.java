@@ -12,11 +12,14 @@ public class EditPostViewModel extends ViewModel {
         return p;
     }
     public void setPost(String post_id){
-        p = PostModel.instance.getAll().getValue().get(0);
-        for(int i = 0; i<PostModel.instance.getAll().getValue().size();i++){
-            if(PostModel.instance.getAll().getValue().get(i).getId().equals(post_id)){
-                p = PostModel.instance.getAll().getValue().get(i);
-            }
-        }
+        PostModel.instance.getPostById(post_id,(post) -> {
+            p = post;
+        });
+//        p = PostModel.instance.getAll().getValue().get(0);
+//        for(int i = 0; i<PostModel.instance.getAll().getValue().size();i++){
+//            if(PostModel.instance.getAll().getValue().get(i).getId().equals(post_id)){
+//                p = PostModel.instance.getAll().getValue().get(i);
+//            }
+//        }
     }
 }
