@@ -44,6 +44,7 @@ public class PostModel {
                 post_list_ld.postValue(post_List);
                 UsersModel.instance.getCurrentUser((id)->{
                     my_posts_list_ld.postValue(PostLocalDB.db.postDao().getPosts(id));
+
                 });
             });
         });
