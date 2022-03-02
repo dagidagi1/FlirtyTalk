@@ -2,6 +2,7 @@ package com.example.flirtytalk.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -101,7 +102,8 @@ public class Post {
         String city = ((String)json.get("city"));
         String photo = ((String)json.get("photo"));
         Timestamp ts = (Timestamp)json.get(LAST_UPDATED);
-        boolean deleted = (Boolean.getBoolean(Objects.requireNonNull(json.get("deleted")).toString()));
+        Log.d("taa",json.get("deleted").toString()+", "+user_id+", "+city);
+        boolean deleted = json.get("deleted").toString().equals("true");//Boolean.parseBoolean((String)json.get("deleted"));//(Boolean.getBoolean(Objects.requireNonNull((String)json.get("deleted"))));
         Post post = new Post(id, user_id, age, phone, null, city, text, photo, deleted, ts.getSeconds());
         return post;
     }

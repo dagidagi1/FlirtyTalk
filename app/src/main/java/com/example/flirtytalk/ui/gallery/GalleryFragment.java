@@ -133,7 +133,6 @@ public class GalleryFragment extends Fragment {
             MyViewHolder holder = new MyViewHolder(v, m_listener);
             return holder;
         }
-
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 //            init row data

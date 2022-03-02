@@ -87,24 +87,26 @@ public class EditPostFragment extends Fragment {
     }
 
     private void deletePost() {
-        viewModel.getPost().setDeleted(true);
-        PostModel.instance.addPost(viewModel.getPost(),()->{
-            //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
-            navController.navigateUp();
-        });
-//        PostModel.instance.deletePost(viewModel.getPost().getId(),()->{
+//        viewModel.getPost().setDeleted(true);
+//        PostModel.instance.addPost(viewModel.getPost(),()->{
+//            //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
 //            navController.navigateUp();
 //        });
+        PostModel.instance.deletePost(viewModel.getPost().getId(),()->{
+            navController.navigateUp();
+        });
     }
 
     private void editPost(View view){
         viewModel.getPost().setPhone(phone_tv.getText().toString());
         viewModel.getPost().setText(bio_tv.getText().toString());
         viewModel.getPost().setCity(city_tv.getText().toString());
-        PostModel.instance.saveImage(postPicBitmap,viewModel.getPost().getId(),(url)-> viewModel.getPost().setPhoto(url));
-        PostModel.instance.addPost(viewModel.getPost(),()->{
-            //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
-            navController.navigateUp();
+        PostModel.instance.saveImage(postPicBitmap,viewModel.getPost().getId(),(url)-> {
+            viewModel.getPost().setPhoto(url);
+            PostModel.instance.addPost(viewModel.getPost(), () -> {
+                //Toast.makeText(getActivity(), "edited: "+ p.getId(), Toast.LENGTH_LONG).show();
+                navController.navigateUp();
+            });
         });
     }
     @Override

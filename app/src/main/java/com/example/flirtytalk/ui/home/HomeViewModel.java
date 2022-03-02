@@ -14,6 +14,7 @@ public class HomeViewModel extends ViewModel {
 
     public LiveData<List<Post>> getData() {
         post_list = PostModel.instance.getAll();
+
         return post_list;
     }
 

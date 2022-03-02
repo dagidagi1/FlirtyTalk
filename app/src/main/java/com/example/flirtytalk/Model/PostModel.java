@@ -23,26 +23,34 @@ public class PostModel {
     }
 
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
-
+    MutableLiveData<List<Post>> my_posts_list_ld = new MutableLiveData<List<Post>>();
     private void reloadPostsList() {
         postModelFireBase.getAllPosts(Post.getLocalLastUpdated(),(list)->{
             MyApplication.executorService.execute(()->{
                 Long lastUpdate = new Long(0);
                 for(Post s : list){
-                    PostLocalDB.db.postDao().insert(s);
-                    if (lastUpdate < s.getLastUpdated()){
-                        lastUpdate = s.getLastUpdated();
+                    if(s.getDeleted()){
+                        PostLocalDB.db.postDao().delete_post(s);
+                    }
+                    else {
+                        PostLocalDB.db.postDao().insert(s);
+                        if (lastUpdate < s.getLastUpdated()) {
+                            lastUpdate = s.getLastUpdated();
+                        }
                     }
                 }
                 Post.setLocalLastUpdated(lastUpdate);
                 List<Post> post_List = PostLocalDB.db.postDao().getAllPosts();
                 post_list_ld.postValue(post_List);
+                UsersModel.instance.getCurrentUser((id)->{
+                    my_posts_list_ld.postValue(PostLocalDB.db.postDao().getPosts(id));
+                });
+
             });
         });
     }
-    public LiveData<List<Post>> getAll(){
-        return post_list_ld;
-    }
+    public LiveData<List<Post>> getAll(){return post_list_ld;}
+    public LiveData<List<Post>> getMyPosts(){return my_posts_list_ld;}
     public void relll(){reloadPostsList();}
     public interface getAllPostsListener{
         void onComplete(List<Post> data);
@@ -66,20 +74,6 @@ public class PostModel {
             listener.onComplete();
         });
     }
-
-    public interface getPostsListener {
-        void onComplete(List<Post> postList);
-    }
-
-    public void getPosts(String userId, getPostsListener listener) {
-        MyApplication.executorService.execute(()->{
-            List<Post> postList = PostLocalDB.db.postDao().getPosts(userId);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete(postList);
-            });
-        });
-    }
-
     public interface deletePostListener {
         void onComplete();
     }
