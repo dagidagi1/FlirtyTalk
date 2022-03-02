@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.example.flirtytalk.databinding.FragmentGalleryBinding;
 import com.example.flirtytalk.ui.home.HomeFragment;
 import com.example.flirtytalk.ui.home.HomeFragmentDirections;
 import com.example.flirtytalk.ui.home.HomeViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -77,8 +79,11 @@ public class GalleryFragment extends Fragment {
         //data = null;
         adapter = new MyAdapter();
         gallery_rv.setAdapter(adapter);
-        adapter.setOnItemClickListener((position) -> {
-            Log.d("TAG", "" + position);
+        adapter.setOnItemClickListener((position, v) -> {
+            Log.d("TAG-G", "" + position);
+            GalleryFragmentDirections.ActionNavGalleryToEditPostFragment action = GalleryFragmentDirections.actionNavGalleryToEditPostFragment(
+                    viewModel.getData().getValue().get(position).getId());
+                            Navigation.findNavController(v).navigate(action);
         });
         viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
             adapter.notifyDataSetChanged();
@@ -88,7 +93,7 @@ public class GalleryFragment extends Fragment {
     static class MyViewHolder extends RecyclerView.ViewHolder{
         //init all row values.
 
-        //photo
+        ImageView avatar_img;
         TextView name_tv, age_tv, city_tv, gender_tv;
 
         public MyViewHolder(@NonNull View itemView, OnItemClickListner m_listener) {
@@ -97,16 +102,14 @@ public class GalleryFragment extends Fragment {
             city_tv = itemView.findViewById(R.id.post_view_city);
             gender_tv = itemView.findViewById(R.id.post_view_gender_tv);
             age_tv = itemView.findViewById(R.id.post_view_age_tv);
+            avatar_img = itemView.findViewById(R.id.post_view_avatar);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(m_listener != null){
                         int pos = getAdapterPosition();
                         if(pos != RecyclerView.NO_POSITION) {
-                            m_listener.onClick(pos);
-                            Log.d("tag", ""+pos);
-                            GalleryFragmentDirections.ActionNavGalleryToEditPostFragment action = GalleryFragmentDirections.actionNavGalleryToEditPostFragment("" + pos);
-                            Navigation.findNavController(v).navigate(action);
+                            m_listener.onClick(pos, v);
                         }
                     }
                 }});
@@ -114,7 +117,7 @@ public class GalleryFragment extends Fragment {
     }
 
     interface OnItemClickListner{
-        void onClick(int position);
+        void onClick(int position, View view);
     }
     public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         private OnItemClickListner m_listener;
@@ -141,6 +144,7 @@ public class GalleryFragment extends Fragment {
             holder.age_tv.setText(viewModel.getData().getValue().get(position).getCity());
             holder.gender_tv.setText(String.valueOf(viewModel.getData().getValue().get(position).getDeleted()));
             holder.city_tv.setText(viewModel.getData().getValue().get(position).getCity());
+            Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
         }
 
         @Override
