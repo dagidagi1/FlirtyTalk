@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.flirtytalk.Model.Post;
-import com.example.flirtytalk.Model.User;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentHomeBinding;
@@ -32,15 +31,6 @@ public class HomeFragment extends Fragment {
     RecyclerView home_rv;
     String id;
     HomeFragment.MyAdapter adapter;
-
-//    private void updateData(){
-//        //swipe refresh
-//        PostModel.instance.getAllPosts((d)->{
-//            viewModel.setData(d);
-//            adapter.notifyDataSetChanged();
-//            Log.d("tag","Gavno updated"+ d.size());
-//        });
-//    }
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -58,29 +48,28 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         UsersModel.instance.getCurrentUser((userId) -> {
             id = userId;
         });
+        //updateData();
         navController = Navigation.findNavController(view);
         home_rv = view.findViewById(R.id.home_rv);
         home_rv.setHasFixedSize(true);
         home_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        //data = null;
         adapter = new HomeFragment.MyAdapter();
         home_rv.setAdapter(adapter);
         adapter.setOnItemClickListener((position) -> {
             Log.d("TAG-H", "" + position);
         });
         viewModel.getData().observe(getViewLifecycleOwner(), (post_List)-> {
-                    adapter.notifyDataSetChanged();
-                });
-        viewModel.getUsers_list().observe(getViewLifecycleOwner(), (users -> {
             adapter.notifyDataSetChanged();
-        }));
+                });
     }
+
 
     static class MyViewHolder extends RecyclerView.ViewHolder{
         //init all row values.
@@ -134,12 +123,13 @@ public class HomeFragment extends Fragment {
         public void onBindViewHolder(@NonNull HomeFragment.MyViewHolder holder, int position) {
             //init row data
             Post post = viewModel.getData().getValue().get(position);
-            User user =viewModel.getUser(post.getUser_id());
-            holder.name_tv.setText(user.getName());
-            holder.age_tv.setText(String.valueOf(post.getAge()));
-            holder.gender_tv.setText(user.getGender());
-            holder.city_tv.setText(post.getCity());
-            Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
+            UsersModel.instance.getUser(post.getUser_id(), (user)->{
+                holder.name_tv.setText(user.getName());
+                holder.age_tv.setText(String.valueOf(post.getAge()));
+                holder.gender_tv.setText(user.getGender());
+                holder.city_tv.setText(post.getCity());
+                Picasso.get().load(viewModel.getData().getValue().get(position).getPhoto()).into(holder.avatar_img);
+            });
         }
 
         @Override
