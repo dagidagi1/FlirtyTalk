@@ -21,6 +21,7 @@ public class User {
     public static final String GENDER = "gender";
     public static final String LIST_LAST_UPDATED = "USER_LAST_UPDATE";
     public static final String LAST_UPDATED = "last_updated";
+    public static final String TAG = "TAG";
 
 
     @PrimaryKey
@@ -72,14 +73,14 @@ public class User {
     }
 
     static Long getLocalLastUpdated(){
-        Long localLastUpdate = MyApplication.getContext().getSharedPreferences("TAG", Context.MODE_PRIVATE)
+        Long localLastUpdate = MyApplication.getContext().getSharedPreferences(TAG, Context.MODE_PRIVATE)
                 .getLong(User.LIST_LAST_UPDATED,0);
         return localLastUpdate;
     }
 
     static void setLocalLastUpdated(Long date){
         SharedPreferences.Editor editor = MyApplication.getContext()
-                .getSharedPreferences("TAG", Context.MODE_PRIVATE).edit();
+                .getSharedPreferences(TAG, Context.MODE_PRIVATE).edit();
         editor.putLong(User.LIST_LAST_UPDATED,date);
         editor.commit();
     }

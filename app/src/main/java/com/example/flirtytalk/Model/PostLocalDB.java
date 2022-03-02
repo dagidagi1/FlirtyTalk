@@ -12,10 +12,11 @@ abstract class PostsLocalDbRepository extends RoomDatabase{
 }
 
 public class PostLocalDB {
+    public static final String POST_LOCAL_DB_DB = "PostLocalDB.db";
     static public final PostsLocalDbRepository db =
             Room.databaseBuilder(MyApplication.getContext(),
                     PostsLocalDbRepository.class,
-                    "PostLocalDB.db")
+                    POST_LOCAL_DB_DB)
                     .fallbackToDestructiveMigration()
                     .build();
     private PostLocalDB(){}

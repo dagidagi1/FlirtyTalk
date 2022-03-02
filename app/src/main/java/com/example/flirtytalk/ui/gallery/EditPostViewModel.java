@@ -2,9 +2,6 @@ package com.example.flirtytalk.ui.gallery;
 
 import androidx.lifecycle.ViewModel;
 
-import com.example.flirtytalk.Model.Post;
-import com.example.flirtytalk.Model.PostModel;
-
 public class EditPostViewModel extends ViewModel {
     private String post_id;
     public EditPostViewModel(){}
