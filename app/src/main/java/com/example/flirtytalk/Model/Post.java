@@ -2,7 +2,6 @@ package com.example.flirtytalk.Model;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
@@ -38,7 +37,7 @@ public class Post {
     private String user_id, phone, text, city, photo;
     private Integer age;
     boolean deleted;
-    private Long lastUpdated = new Long(0);
+    private Long lastUpdated = 0L;
 
     public Post(){
     }

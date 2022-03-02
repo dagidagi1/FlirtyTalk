@@ -1,9 +1,6 @@
 package com.example.flirtytalk.Model;
 
 
-import android.graphics.Bitmap;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.flirtytalk.My_application.MyApplication;
@@ -20,6 +17,7 @@ public class UsersModel {
 
     private UsersModel(){
         reloadUsersList();
+        fireBaseDataListener(this::reloadUsersList);
     }
 
     public interface getAllUsersListener{
@@ -27,21 +25,17 @@ public class UsersModel {
     }
 
     private void reloadUsersList() {
-        usersModelFireBase.getAllUsers(User.getLocalLastUpdated(),(list)->{
-            MyApplication.executorService.execute(()->{
-                for(User u : list){
-                    UsersLocalDB.db.userDao().insert(u);
-                    if (u.getLastUpdated() > Post.getLocalLastUpdated()){
-                        User.setLocalLastUpdated(u.getLastUpdated());
-                    }
+        usersModelFireBase.getAllUsers(User.getLocalLastUpdated(),(list)-> MyApplication.executorService.execute(()->{
+            for(User u : list){
+                UsersLocalDB.db.userDao().insert(u);
+                if (u.getLastUpdated() > Post.getLocalLastUpdated()){
+                    User.setLocalLastUpdated(u.getLastUpdated());
                 }
-                List<User> users_List = UsersLocalDB.db.userDao().getAllUsers();
-                userListLD.postValue(users_List);
-            });
-        });
+            }
+            List<User> users_List = UsersLocalDB.db.userDao().getAllUsers();
+            userListLD.postValue(users_List);
+        }));
     }
-
-    public LiveData<List<User>> get_all() {return userListLD;}
 
     public interface addUserListener {
         void onComplete();
@@ -59,9 +53,7 @@ public class UsersModel {
     public void getUser(String userId, getUserListener listener) {
         MyApplication.executorService.execute(()->{
             User user = UsersLocalDB.db.userDao().getUser(userId);
-            MyApplication.mainHandler.post(()->{
-                listener.onComplete(user);
-            });
+            MyApplication.mainHandler.post(()-> listener.onComplete(user));
         });
     }
 
@@ -90,10 +82,11 @@ public class UsersModel {
         usersModelFireBase.logout();
     }
 
-    public interface saveImageListener{
-        void onComplete(String url);
+    public interface fireBaseDataListener {
+        void onComplete();
     }
-    public void saveImage(Bitmap image, String id, saveImageListener listener){
-        usersModelFireBase.saveImage(image, id, listener);
+
+    public void fireBaseDataListener(fireBaseDataListener listener){
+        usersModelFireBase.listenToChanges(listener);
     }
 }

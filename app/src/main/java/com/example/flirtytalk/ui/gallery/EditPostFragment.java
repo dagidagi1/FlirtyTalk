@@ -2,22 +2,11 @@ package com.example.flirtytalk.ui.gallery;
 
 import static android.app.Activity.RESULT_OK;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +15,16 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.example.flirtytalk.Model.Post;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+
 import com.example.flirtytalk.Model.PostModel;
 import com.example.flirtytalk.R;
-import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.example.flirtytalk.ui.post_details.PostDetailsFragmentArgs;
 import com.squareup.picasso.Picasso;
 

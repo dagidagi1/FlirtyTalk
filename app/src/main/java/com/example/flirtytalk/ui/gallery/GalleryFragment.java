@@ -1,6 +1,5 @@
 package com.example.flirtytalk.ui.gallery;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,7 +21,6 @@ import com.example.flirtytalk.Model.Post;
 import com.example.flirtytalk.Model.UsersModel;
 import com.example.flirtytalk.R;
 import com.example.flirtytalk.databinding.FragmentGalleryBinding;
-import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
 
 public class GalleryFragment extends Fragment {

@@ -17,7 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.flirtytalk.R;
-import com.example.flirtytalk.ui.home.HomeFragmentDirections;
 import com.example.flirtytalk.ui.home.HomeViewModel;
 import com.squareup.picasso.Picasso;
 

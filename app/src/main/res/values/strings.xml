@@ -42,6 +42,7 @@
     <string name="register_not_succeeded">Register not succeeded</string>
     <string name="signed_in_successfully">Signed in successfully</string>
     <string name="incorrect_email_or_password">Incorrect email or password</string>
+    <string name="error_writing_document">Error writing document</string>
 
 
 

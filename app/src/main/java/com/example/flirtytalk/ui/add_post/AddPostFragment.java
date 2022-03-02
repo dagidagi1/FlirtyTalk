@@ -16,8 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +33,7 @@ import java.util.List;
 
 public class AddPostFragment extends Fragment {
 
+    public static final String DATA = "data";
     private EditText city_tv, phone_tv, bio_tv;
     private Spinner spn;
     private int age;
@@ -103,7 +102,7 @@ public class AddPostFragment extends Fragment {
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
                 resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            postPicBitmap = (Bitmap) extras.get("data");
+            postPicBitmap = (Bitmap) extras.get(DATA);
             post_pic.setImageBitmap(postPicBitmap);
         }
     }
