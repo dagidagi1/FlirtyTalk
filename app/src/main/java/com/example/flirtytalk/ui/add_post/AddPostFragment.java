@@ -78,6 +78,7 @@ public class AddPostFragment extends Fragment {
             Post p =new Post(id, age, phone, city, bio, null);
             PostModel.instance.saveImage(postPicBitmap,p.getId(),(url)->{
                 p.setPhoto(url);
+
                 Toast.makeText(getActivity(), ""+ url, Toast.LENGTH_LONG).show();
                 PostModel.instance.addPost(p,()->{
                     navController.navigateUp();

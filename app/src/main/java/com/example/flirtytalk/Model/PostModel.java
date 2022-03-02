@@ -23,7 +23,7 @@ public class PostModel {
     }
 
     MutableLiveData<List<Post>> post_list_ld = new MutableLiveData<List<Post>>();
-
+    MutableLiveData<List<Post>> my_posts_list_ld = new MutableLiveData<List<Post>>();
     private void reloadPostsList() {
         postModelFireBase.getAllPosts(Post.getLocalLastUpdated(),(list)->{
             MyApplication.executorService.execute(()->{
@@ -45,25 +45,24 @@ public class PostModel {
                 UsersModel.instance.getCurrentUser((id)->{
                     my_posts_list_ld.postValue(PostLocalDB.db.postDao().getPosts(id));
                 });
-
             });
         });
     }
-
-    public LiveData<List<Post>> getAll(){
-        return post_list_ld;
-    }
-
-    MutableLiveData<List<Post>> my_posts_list_ld = new MutableLiveData<List<Post>>();
-
+    public LiveData<List<Post>> getAll(){return post_list_ld;}
     public LiveData<List<Post>> getMyPosts(){return my_posts_list_ld;}
-
     public interface getAllPostsListener{
         void onComplete(List<Post> data);
     }
 
     public interface addPostListener {
         void onComplete();
+    }
+
+    public interface getPostByIdListener{
+        void onComplete(Post p);
+    }
+    public Post getPostById(String post_id, getPostByIdListener listener){
+        return PostLocalDB.db.postDao().getPost(post_id);
     }
 
     public void addPost(Post post, addPostListener listener){
@@ -75,9 +74,11 @@ public class PostModel {
     }
 
     private void fireBaseDataChanged(fireBaseDataListener listener){
-        postModelFireBase.listenToChanges(listener::onComplete);
+        postModelFireBase.listenToChanges(()->{
+            reloadPostsList();
+            listener.onComplete();
+        });
     }
-
     public interface deletePostListener {
         void onComplete();
     }

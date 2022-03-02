@@ -56,6 +56,7 @@ public class PostModelFireBase {
     public void saveImage(Bitmap image, String id, PostModel.saveImageListener listener) {
         if(image == null){listener.onComplete(null); return;}
         FirebaseStorage storage = FirebaseStorage.getInstance();
+
         StorageReference storageRef = storage.getReference();
         StorageReference imageRef = storageRef.child("avatar/" + id + ".jpg");
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
